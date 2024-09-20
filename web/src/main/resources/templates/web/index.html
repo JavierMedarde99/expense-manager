@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <table style="border: 1px black solid;">
+        <tr style="border: 1px black solid;">
+            <th>Month</th>
+            <th>Salary</th>
+            <th>Name</th>
+            <th>bills</th>
+            <th>amount</th>
+            <th>revenue</th>
+        </tr>
+        <tr>
+            <td th:rowspan="${amountBills}" th:text="${month}"></td>
+            <td th:rowspan="${amountBills}">1710</td>
+        </tr>
+        <tr th:each="bill: ${bills}">
+            <td th:text="${bill.name}"></td>
+            <td th:text="${bill.price}"></td>
+            <td th:text="${bill.amount}"></td>
+            
+        </tr>
+        <tr>
+            <td>Total</td>
+            <td colspan="2" th:text="${total}"></td>
+            <td th:rowspan="${amountBills}" th:text="${revenue}"></td>
+        </tr>
+        <tr>
+            
+        </tr>
+    </table>
+</body>
+
+</html>
