@@ -4,38 +4,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Document</title>
 </head>
 
-<body>
-    <table style="border: 1px black solid;">
-        <tr style="border: 1px black solid;">
-            <th>Month</th>
-            <th>Salary</th>
-            <th>Name</th>
-            <th>bills</th>
-            <th>amount</th>
-            <th>revenue</th>
-        </tr>
-        <tr>
-            <td th:rowspan="${amountBills}" th:text="${month}"></td>
-            <td th:rowspan="${amountBills}">1710</td>
-        </tr>
-        <tr th:each="bill: ${bills}">
-            <td th:text="${bill.name}"></td>
-            <td th:text="${bill.price}"></td>
-            <td th:text="${bill.amount}"></td>
+<body >
+    <header th:insert="~{web/fragments/header :: header}" class="d-flex flex-column" style="border: 1px black solid;"></header>
+    <main class="w-100 h-100">
+        <form action="/insertBills" method="post">
+            <label for="name">name</label>
+            <input type="text" name="name" id="name" class="form-control">
+            <label for="price">price</label>
+            <input type="number" name="price" id="price">
+            <label for="type"></label>
+            <select name="type" id="type">
+                <option value="fixed"></option>
+                <option value="variable"></option>
+            </select>
+            <label for="subtype"></label>
+            <select name="subtype" id="subtype">
+                <option value="videogames"></option>
+                <option value="variables"></option>
+            </select>
+        </form>
+        <table class="table table-primary table-bordered" >
+            <tr >
+                <th class="text-bg-dark text-center align-middle">Month</th>
+                <th class="text-bg-dark text-center align-middle">Salary</th>
+                <th class="text-bg-dark text-center align-middle">revenue</th>
+                <th class="text-bg-dark text-center align-middle">Name</th>
+                <th class="text-bg-dark text-center align-middle">bills</th>
+                <th class="text-bg-dark text-center align-middle">amount</th>
+            </tr>
+            <tr>
+                <td th:rowspan="${amountBillsBefore}" th:text="${monthBefore}" class="text-center align-middle"></td>
+                <td th:rowspan="${amountBillsBefore}" class="text-center align-middle">1710</td>
+                <td th:rowspan="${amountBillsBefore}" th:text="${revenueBefore}" class="text-center align-middle"></td>
+            </tr>
+            <tr th:each="billBefore: ${billsBefore}">
+                <td th:text="${billBefore.name}" class="text-center align-middle"></td>
+                <td th:text="${billBefore.price}" class="text-center align-middle"></td>
+                <td th:text="${billBefore.amount}" class="text-center align-middle"></td>
+                
+            </tr>
+            <tr>
+                <td class="text-center align-middle">Total</td>
+                <td colspan="2" th:text="${totalBefore}" class="text-center align-middle"></td>
+            </tr>
+            <tr>
+                <td th:rowspan="${amountBills}" th:text="${month}" class="text-center align-middle"></td>
+                <td th:rowspan="${amountBills}" class="text-center align-middle">1710</td>
+                <td th:rowspan="${amountBills}" th:text="${revenue}" class="text-center align-middle"></td>
+            </tr>
+            <tr th:each="bill: ${bills}">
+                <td th:text="${bill.name}" class="text-center align-middle"></td>
+                <td th:text="${bill.price}" class="text-center align-middle"></td>
+                <td th:text="${bill.amount}" class="text-center align-middle"></td>
+                
+            </tr>
+            <tr>
+                <td class="text-center align-middle">Total</td>
+                <td colspan="2" th:text="${total}" class="text-center align-middle"></td>
+            </tr>
             
-        </tr>
-        <tr>
-            <td>Total</td>
-            <td colspan="2" th:text="${total}"></td>
-            <td th:rowspan="${amountBills}" th:text="${revenue}"></td>
-        </tr>
-        <tr>
-            
-        </tr>
-    </table>
+        </table>
+    </main>
+    
 </body>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </html>
