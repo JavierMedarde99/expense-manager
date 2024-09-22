@@ -3,15 +3,20 @@ package com.bills.web.services;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bills.web.entities.Bills;
+import com.bills.web.entities.Users;
 import com.bills.web.repository.BillsRepository;
 import com.bills.web.repository.RevenueMonthRepository;
+import com.bills.web.repository.UsersRepository;
 import com.bills.web.utils.Constants;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,9 +27,11 @@ public class WebService {
 
     private final BillsRepository billsRepository;
 
+    private final UsersRepository usersRepository;
+
     private final RevenueMonthRepository revenueMonthRepository;
     
-    public String actualMoth(Model model){
+    public String actualMoth(Model model, HttpSession session){
         LocalDate today = LocalDate.now();
         Integer year = today.getYear();
         Integer month = today.getMonthValue()-1;
@@ -33,7 +40,26 @@ public class WebService {
         }
         beforeMonth(today.getMonthValue(),today.getYear(),model);
         beforeMonth(month,year,model);
+
+        //TODO: cambiarlo cuando cree el login
+        session.setAttribute("user", 9);
+
         return "web/index";
+    }
+
+    public String insertBills(String name,Double price,
+    String type, String subtype, LocalDate dateBills, Integer amount, HttpSession session, Model model ){
+        Long idUser = Long.parseLong(session.getAttribute("user").toString()); 
+        Optional<Users> optUsers = usersRepository.findById(idUser);
+        if(optUsers.isPresent()){
+            Users user = optUsers.get();
+            Bills bill = new Bills(name, price, type, subtype, dateBills, amount, user.getId());
+            billsRepository.save(bill);
+            model.addAttribute("success", "save find bill");
+        }else{
+            model.addAttribute("error", "user not found in data base");
+        }
+        return Constants.REDIRECT + "/";
     }
 
     private void beforeMonth(Integer month, Integer year,Model model){

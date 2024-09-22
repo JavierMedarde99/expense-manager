@@ -4,6 +4,8 @@ import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
@@ -14,14 +16,12 @@ import lombok.Generated;
 @Data
 public class RevenueMonth {
     @Id
-    @Generated
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Integer month;
     private Integer year;
     private Double revenue;
+    private Long idUser;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name= "id")
-    private Set<Users> idUser;
 }
