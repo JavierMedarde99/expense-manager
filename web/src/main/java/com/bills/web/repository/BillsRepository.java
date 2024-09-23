@@ -9,6 +9,7 @@ import com.bills.web.entities.Bills;
 
 public interface BillsRepository extends CrudRepository<Bills,Long>{
     
-    @Query(value = "SELECT * FROM bills WHERE MONTH(date_bills) =:month AND YEAR(date_bills) =:year", nativeQuery=true)
-    List<Bills> getOneMonthBills(Integer month, Integer year);
+    @Query(value = "SELECT * FROM bills WHERE MONTH(date_bills) =:month AND YEAR(date_bills) =:year AND id_user=:user", nativeQuery=true)
+    List<Bills> getOneMonthBills(Integer month, Integer year, Integer user);
+
 }

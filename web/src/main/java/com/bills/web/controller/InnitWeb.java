@@ -26,8 +26,15 @@ public class InnitWeb {
 
     @GetMapping
     public String initWeb(Model model,HttpSession session){
-        return service.actualMoth(model,session);
+        return service.dashboardMoth(model,session);
     }
+
+    @GetMapping("/month")
+    public String getMethodName(Model model,HttpSession session,@RequestParam(required = false) Integer moth,
+    @RequestParam(required = false) Integer year) {
+        return service.moth(model, session, moth, year);
+    }
+    
 
     @PostMapping("/insertBills")
     public String postMethodName(@RequestParam String name,@RequestParam Double price,

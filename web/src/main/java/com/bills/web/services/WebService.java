@@ -2,15 +2,20 @@ package com.bills.web.services;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.Year;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bills.web.entities.Bills;
 import com.bills.web.entities.Users;
+import com.bills.web.model.MonthArray;
+import com.bills.web.model.YearArray;
 import com.bills.web.repository.BillsRepository;
 import com.bills.web.repository.RevenueMonthRepository;
 import com.bills.web.repository.UsersRepository;
@@ -31,20 +36,44 @@ public class WebService {
 
     private final RevenueMonthRepository revenueMonthRepository;
     
-    public String actualMoth(Model model, HttpSession session){
+    public String dashboardMoth(Model model, HttpSession session){
+        //TODO: cambiarlo cuando cree el login
+        session.setAttribute("user", 9);
+        Integer user = Integer.parseInt(session.getAttribute("user").toString());
         LocalDate today = LocalDate.now();
         Integer year = today.getYear();
         Integer month = today.getMonthValue()-1;
         if(today.getMonthValue() == 1){
             year = year-1;
         }
-        beforeMonth(today.getMonthValue(),today.getYear(),model);
-        beforeMonth(month,year,model);
-
-        //TODO: cambiarlo cuando cree el login
-        session.setAttribute("user", 9);
+        beforeMonth(today.getMonthValue(),today.getYear(),user,model);
+        beforeMonth(month,year,user,model);
 
         return "web/index";
+    }
+
+    public String moth(Model model,HttpSession session, Integer month, Integer year){
+        Integer user = Integer.parseInt(session.getAttribute("user").toString());
+        List<MonthArray> monthModel = new ArrayList();
+        for(int i=1; Month.values().length>i;i++){
+                monthModel.add(new MonthArray(String.valueOf(i), Month.of(i).name()));                
+        }
+        List<YearArray> arrayInteger = new ArrayList();
+        for(int i=2023; Integer.parseInt(Year.now().toString())>i;i++){
+            arrayInteger.add(new YearArray(String.valueOf(i)));
+        }
+
+        model.addAttribute("months", monthModel);
+        model.addAttribute("years", arrayInteger);
+
+        if(month == null && year == null){
+            month = LocalDate.now().getMonthValue();
+            year = LocalDate.now().getYear();
+        } 
+
+        beforeMonth(month, year, user, model);
+
+        return "web/month";
     }
 
     public String insertBills(String name,Double price,
@@ -62,10 +91,10 @@ public class WebService {
         return Constants.REDIRECT + "/";
     }
 
-    private void beforeMonth(Integer month, Integer year,Model model){
+    private void beforeMonth(Integer month, Integer year,Integer user,Model model){
         double total =0;
         Integer yearBefore = year;
-        List<Bills> listBills = billsRepository.getOneMonthBills(month, year);
+        List<Bills> listBills = billsRepository.getOneMonthBills(month, year,user);
         Integer mothBefore = month -1;
         for (Bills bill : listBills) {
             total =  total +(bill.getPrice() * bill.getAmount());
