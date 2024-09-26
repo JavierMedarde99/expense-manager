@@ -4,7 +4,9 @@ import java.time.LocalDate;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -15,6 +17,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Slf4j
 @Controller
@@ -29,12 +33,17 @@ public class InnitWeb {
         return service.dashboardMoth(model,session);
     }
 
-    @GetMapping("/month")
-    public String getMethodName(Model model,HttpSession session,@RequestParam(required = false) Integer moth,
+    @PostMapping("/month")
+    public String getMethodName(Model model,HttpSession session,@RequestParam(required = false) Integer month,
     @RequestParam(required = false) Integer year) {
-        return service.moth(model, session, moth, year);
+        return service.moth(model, session, month, year);
     }
-    
+
+    @PostMapping("/deleteBill/{id}")
+    public String deleteBillController(Model model,HttpSession session,@PathVariable Integer id,
+    @RequestParam(required = false) String page) {
+        return service.deleteBill(id, page, session, model);
+    }
 
     @PostMapping("/insertBills")
     public String postMethodName(@RequestParam String name,@RequestParam Double price,
