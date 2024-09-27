@@ -92,17 +92,27 @@ public class WebService {
         return Constants.REDIRECT + "/";
     }
 
-    public String deleteBill(Integer id, String page, HttpSession session, Model model){
+    public String deleteBill(Integer id, String page, Integer amount, HttpSession session, Model model){
         Long idUser = Long.parseLong(session.getAttribute("user").toString()); 
         Optional<Users> optUsers = usersRepository.findById(idUser);
         if(optUsers.isPresent()){
-            billsRepository.deleteById(Long.parseLong(id.toString()));
+            if(amount == 0){
+                billsRepository.deleteById(Long.parseLong(id.toString()));
+            }else{
+                Optional<Bills> optBills = billsRepository.findById(Long.parseLong(id.toString()));
+                if(optBills.isPresent()){
+                    Bills bill = optBills.get();
+                    bill.setAmount(bill.getAmount()-amount);
+                    billsRepository.save(bill);
+                }
+            }
+            
             model.addAttribute("success", "delete bill");
         }else{
             model.addAttribute("error", "user not found in data base");
         }
 
-        if(page== null){
+        if(page== null || page.isEmpty()){
             return Constants.REDIRECT + "/";
         }else{
             return Constants.REDIRECT + page;
@@ -137,7 +147,7 @@ public class WebService {
         }else{
             model.addAttribute("bills", listBills);
             model.addAttribute("total", total);
-            model.addAttribute("month", LocalDate.now().getMonth().toString());
+            model.addAttribute("month", Month.of(month));
             model.addAttribute("amountBills", listBills.size()+2);
             model.addAttribute("revenue", revenuaLastMoth+Constants.SALARY-total);
         }
