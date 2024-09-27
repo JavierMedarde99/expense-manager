@@ -77,6 +77,10 @@ public class WebService {
         return "web/month";
     }
 
+    public String year(){
+        return null;
+    }
+
     public String insertBills(String name,Double price,
     String type, String subtype, LocalDate dateBills, Integer amount, HttpSession session, Model model ){
         Long idUser = Long.parseLong(session.getAttribute("user").toString()); 

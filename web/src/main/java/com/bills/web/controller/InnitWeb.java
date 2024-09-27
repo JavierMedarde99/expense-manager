@@ -16,6 +16,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Slf4j
@@ -30,6 +32,14 @@ public class InnitWeb {
     public String initWeb(Model model,HttpSession session){
         return service.dashboardMoth(model,session);
     }
+
+    @PostMapping("/year")
+    public String postMethodName(@RequestBody String entity) {
+        //TODO: process POST request
+        
+        return entity;
+    }
+    
 
     @PostMapping("/month")
     public String getMethodName(Model model,HttpSession session,@RequestParam(required = false) Integer month,
