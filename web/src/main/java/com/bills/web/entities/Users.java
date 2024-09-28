@@ -23,6 +23,7 @@ public class Users {
     private String userName;
     private String email;
     private String password;
+    private Double salary;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "user_id")

@@ -16,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -34,10 +33,9 @@ public class InnitWeb {
     }
 
     @PostMapping("/year")
-    public String postMethodName(@RequestBody String entity) {
-        //TODO: process POST request
+    public String postMethodName(Model model,HttpSession session) {
         
-        return entity;
+        return service.getYear(session, model);
     }
     
 

@@ -14,6 +14,7 @@ import com.bills.web.entities.Bills;
 import com.bills.web.entities.Users;
 import com.bills.web.model.MonthArray;
 import com.bills.web.model.YearArray;
+import com.bills.web.model.YearBills;
 import com.bills.web.repository.BillsRepository;
 import com.bills.web.repository.RevenueMonthRepository;
 import com.bills.web.repository.UsersRepository;
@@ -77,10 +78,6 @@ public class WebService {
         return "web/month";
     }
 
-    public String year(){
-        return null;
-    }
-
     public String insertBills(String name,Double price,
     String type, String subtype, LocalDate dateBills, Integer amount, HttpSession session, Model model ){
         Long idUser = Long.parseLong(session.getAttribute("user").toString()); 
@@ -122,6 +119,19 @@ public class WebService {
             return Constants.REDIRECT + page;
         }
          
+    }
+
+    public String getYear(HttpSession session, Model model){
+        Long idUser = Long.parseLong(session.getAttribute("user").toString()); 
+        Optional<Users> optUsers = usersRepository.findById(idUser);
+
+        if(optUsers.isPresent()){
+            List<YearBills> listYear = revenueMonthRepository.geyAllYear(idUser);
+            model.addAttribute("years", listYear);
+        }
+
+        return "web/year";
+
     }
 
     private void beforeMonth(Integer month, Integer year,Integer user,Model model, boolean moth){
