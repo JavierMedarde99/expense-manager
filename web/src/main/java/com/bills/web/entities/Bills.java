@@ -1,6 +1,8 @@
 package com.bills.web.entities;
 
 import java.time.LocalDate;
+
+import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +25,7 @@ public class Bills {
     private Double price;
     private String type;
     private String subType;
+    @Nullable
     private LocalDate dateBills;
     private Integer amount;
     private Long idUser;

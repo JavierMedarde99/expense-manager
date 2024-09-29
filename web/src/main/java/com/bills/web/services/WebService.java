@@ -83,6 +83,9 @@ public class WebService {
     String type, String subtype, LocalDate dateBills, Integer amount, HttpSession session, Model model ){
         Long idUser = Long.parseLong(session.getAttribute("user").toString()); 
         Optional<Users> optUsers = usersRepository.findById(idUser);
+        if(type.equals("fixed")){
+            dateBills = null;
+        }
         if(optUsers.isPresent()){
             Users user = optUsers.get();
             Bills bill = new Bills(name, price, type, subtype, dateBills, amount, user.getId());
