@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class YearBills {
-    private Integer year;
+    private Integer yearValue;
     private Double totalBillYear;
     private Double totalEarnings;
     private Double moneySaved;

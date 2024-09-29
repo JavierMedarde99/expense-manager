@@ -5,9 +5,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Table(name = "month_data")
 public class RevenueMonth {
@@ -21,5 +25,14 @@ public class RevenueMonth {
     private Long idUser;
     private Double total;
     private Double monthSalary;
+
+    public RevenueMonth(Integer month,Integer year,Double revenue,Long idUser,Double total,Double monthSalary){
+        this.month = month;
+        this.year = year;
+        this.revenue = revenue;
+        this.idUser = idUser;
+        this.total = total;
+        this.monthSalary = monthSalary;
+    }
 
 }

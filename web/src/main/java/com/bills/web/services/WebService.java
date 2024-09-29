@@ -5,6 +5,7 @@ import java.time.Month;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -126,7 +127,7 @@ public class WebService {
         Optional<Users> optUsers = usersRepository.findById(idUser);
 
         if(optUsers.isPresent()){
-            List<YearBills> listYear = revenueMonthRepository.geyAllYear(idUser);
+            List<Map<String,Object>> listYear = revenueMonthRepository.geyAllYear(idUser);
             model.addAttribute("years", listYear);
         }
 
@@ -151,19 +152,28 @@ public class WebService {
         if(mothBefore == 12){
             yearBefore = year-1;
         }
-        Double revenuaLastMoth = revenueMonthRepository.getRevenue(mothBefore, yearBefore);
+        Optional<Double> revenuaLastMoth = revenueMonthRepository.getRevenue(mothBefore, yearBefore);
         if(moth){
             model.addAttribute("billsBefore", listBills);
             model.addAttribute("totalBefore", total);
             model.addAttribute("monthBefore", Month.of(month));
             model.addAttribute("amountBillsBefore", listBills.size()+2);
-            model.addAttribute("revenueBefore", revenuaLastMoth+Constants.SALARY-total);
+            if(revenuaLastMoth.isPresent()){
+                model.addAttribute("revenueBefore", revenuaLastMoth.get()+Constants.SALARY-total);
+            }else{
+                model.addAttribute("revenueBefore", Constants.SALARY-total);
+            }
+            
         }else{
             model.addAttribute("bills", listBills);
             model.addAttribute("total", total);
             model.addAttribute("month", Month.of(month));
             model.addAttribute("amountBills", listBills.size()+2);
-            model.addAttribute("revenue", revenuaLastMoth+Constants.SALARY-total);
+            if(revenuaLastMoth.isPresent()){
+                model.addAttribute("revenueBefore", revenuaLastMoth.get()+Constants.SALARY-total);
+            }else{
+                model.addAttribute("revenueBefore", Constants.SALARY-total);
+            }
         }
         
     }
