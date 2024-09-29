@@ -15,7 +15,6 @@ import com.bills.web.entities.Bills;
 import com.bills.web.entities.Users;
 import com.bills.web.model.MonthArray;
 import com.bills.web.model.YearArray;
-import com.bills.web.model.YearBills;
 import com.bills.web.repository.BillsRepository;
 import com.bills.web.repository.RevenueMonthRepository;
 import com.bills.web.repository.UsersRepository;
@@ -131,7 +130,12 @@ public class WebService {
 
         if(optUsers.isPresent()){
             List<Map<String,Object>> listYear = revenueMonthRepository.geyAllYear(idUser);
-            model.addAttribute("years", listYear);
+            if(listYear.isEmpty()){
+                model.addAttribute("existsData", false);
+            }else{
+                model.addAttribute("years", listYear);
+            }
+            
         }
 
         return "web/year";
@@ -156,28 +160,33 @@ public class WebService {
             yearBefore = year-1;
         }
         Optional<Double> revenuaLastMoth = revenueMonthRepository.getRevenue(mothBefore, yearBefore);
-        if(moth){
-            model.addAttribute("billsBefore", listBills);
-            model.addAttribute("totalBefore", total);
-            model.addAttribute("monthBefore", Month.of(month));
-            model.addAttribute("amountBillsBefore", listBills.size()+2);
-            if(revenuaLastMoth.isPresent()){
-                model.addAttribute("revenueBefore", revenuaLastMoth.get()+Constants.SALARY-total);
-            }else{
-                model.addAttribute("revenueBefore", Constants.SALARY-total);
-            }
-            
+        if(listBills.isEmpty()){
+            model.addAttribute("existsData", false);
         }else{
-            model.addAttribute("bills", listBills);
-            model.addAttribute("total", total);
-            model.addAttribute("month", Month.of(month));
-            model.addAttribute("amountBills", listBills.size()+2);
-            if(revenuaLastMoth.isPresent()){
-                model.addAttribute("revenueBefore", revenuaLastMoth.get()+Constants.SALARY-total);
+            if(moth){
+                model.addAttribute("billsBefore", listBills);
+                model.addAttribute("totalBefore", total);
+                model.addAttribute("monthBefore", Month.of(month));
+                model.addAttribute("amountBillsBefore", listBills.size()+2);
+                if(revenuaLastMoth.isPresent()){
+                    model.addAttribute("revenueBefore", revenuaLastMoth.get()+Constants.SALARY-total);
+                }else{
+                    model.addAttribute("revenueBefore", Constants.SALARY-total);
+                }
+                
             }else{
-                model.addAttribute("revenueBefore", Constants.SALARY-total);
+                model.addAttribute("bills", listBills);
+                model.addAttribute("total", total);
+                model.addAttribute("month", Month.of(month));
+                model.addAttribute("amountBills", listBills.size()+2);
+                if(revenuaLastMoth.isPresent()){
+                    model.addAttribute("revenue", revenuaLastMoth.get()+Constants.SALARY-total);
+                }else{
+                    model.addAttribute("revenue", Constants.SALARY-total);
+                }
             }
         }
+
         
     }
 }
