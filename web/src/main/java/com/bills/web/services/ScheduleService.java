@@ -50,7 +50,7 @@ public class ScheduleService {
 
     private Double getTotalBills(Integer month,Integer year,Integer idUser){
         Double total =0.00;
-        List<Bills> listBills = billsRepository.getOneMonthBills(month, year, idUser);
+        List<Bills> listBills = billsRepository.getOneMonthBills(month, year, idUser,month,year);
         for (Bills bills : listBills) {
             total = (bills.getPrice() * bills.getAmount()) + total;
         }
