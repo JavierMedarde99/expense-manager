@@ -11,54 +11,58 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bills.web.services.WebService;
 
+import io.micrometer.common.lang.Nullable;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.web.bind.annotation.PostMapping;
 
-
-
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping({"/",""})
+@RequestMapping({ "/", "" })
 public class InnitWeb {
-    
+
     private final WebService service;
 
     @GetMapping
-    public String initWeb(Model model,HttpSession session){
-        return service.dashboardMoth(model,session);
+    public String initWeb(Model model, HttpSession session) {
+        return service.dashboardMoth(model, session);
     }
 
     @PostMapping("/year")
-    public String postMethodName(Model model,HttpSession session) {
-        
+    public String postMethodName(Model model, HttpSession session) {
+
         return service.getYear(session, model);
     }
-    
 
     @PostMapping("/month")
-    public String getMethodName(Model model,HttpSession session,@RequestParam(required = false) Integer month,
-    @RequestParam(required = false) Integer year) {
+    public String getMethodName(Model model, HttpSession session, @RequestParam(required = false) Integer month,
+            @RequestParam(required = false) Integer year) {
         return service.moth(model, session, month, year);
     }
 
     @PostMapping("/deleteBill/{id}")
-    public String deleteBillController(Model model,HttpSession session,@PathVariable Integer id,
-    @RequestParam(required = false) String page, @RequestParam(defaultValue = "0") String amount) {
-        return service.deleteBill(id, page,Integer.parseInt(amount) , session, model);
+    public String deleteBillController(Model model, HttpSession session, @PathVariable Integer id,
+            @RequestParam(required = false) String page, @RequestParam(defaultValue = "0") String amount) {
+        return service.deleteBill(id, page, Integer.parseInt(amount), session, model);
+    }
+
+    @PostMapping("/updateBill/{id}")
+    public String updateBillController(Model model, HttpSession session, @PathVariable Integer id,
+            @RequestParam(required = false) String page, @RequestParam String amount, @RequestParam String name,
+            @RequestParam Double price, @RequestParam String type, @RequestParam String subType,
+            @RequestParam LocalDate dateBills) {
+        return service.deleteBill(id, page, Integer.parseInt(amount), session, model);
     }
 
     @PostMapping("/insertBills")
-    public String postMethodName(@RequestParam String name,@RequestParam Double price,
-    @RequestParam String type, @RequestParam String subtype, @RequestParam LocalDate dateBills, @RequestParam Integer amount, HttpSession session
-    , Model model) {
-        
-        
+    public String postMethodName(@RequestParam String name, @RequestParam Double price,
+            @RequestParam String type, @RequestParam String subtype, @RequestParam LocalDate dateBills,
+            @RequestParam Integer amount, HttpSession session, Model model) {
+
         return service.insertBills(name, price, type, subtype, dateBills, amount, session, model);
     }
-    
-    
+
 }

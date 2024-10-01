@@ -15,16 +15,28 @@ function getID(id, amount,name,page) {
 
 }
 
+function getIDUpdate(id, amount,name,page,price,type,subtype,date){
+    let urlForm = "/updateBill/" + id;
+    document.getElementById("formModalUpdate").action = urlForm;
+
+    createInputHidden(page);
+    let nameInput = document.getElementById("nameUpdate");
+    nameInput.value = name;
+
+    let priceInput = document.getElementById("priceUpdate");
+    priceInput.value = price;
+
+    let dateInput = document.getElementById("dateUpdate");
+    dateInput.value = date;
+   
+    let amountInput = document.getElementById("amountUpdate");
+    amountInput.value = amount;
+
+}
+
 function createSelect(amount,name,page) {
 
-    let inputpage = document.createElement("input");
-    inputpage.setAttribute("type", "hidden");
-    inputpage.setAttribute("name", "page");
-    if(page == null || page == undefined){
-        inputpage.setAttribute("value", "");
-    }else{
-        inputpage.setAttribute("value", page);
-    }
+    createInputHidden(page)
     
     inputpage.setAttribute("id", "pageCallBack");
     document.getElementById("formModal").appendChild(inputpage);
@@ -53,3 +65,13 @@ function createSelect(amount,name,page) {
 
 }
 
+function createInputHidden(page){
+    let inputpage = document.createElement("input");
+    inputpage.setAttribute("type", "hidden");
+    inputpage.setAttribute("name", "page");
+    if(page == null || page == undefined){
+        inputpage.setAttribute("value", "");
+    }else{
+        inputpage.setAttribute("value", page);
+    }
+}

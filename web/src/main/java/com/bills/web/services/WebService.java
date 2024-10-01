@@ -10,6 +10,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bills.web.entities.Bills;
 import com.bills.web.entities.Users;
@@ -138,6 +140,36 @@ public class WebService {
         return "web/year";
 
     }
+
+    public String updateBill(Model model, HttpSession session, Integer id,
+            String page, Integer amount, String name,
+            Double price, String type, String subType, LocalDate dateBills){
+                Long idUser = Long.parseLong(session.getAttribute("user").toString()); 
+                Optional<Users> optUsers = usersRepository.findById(idUser);
+                if(optUsers.isPresent()){
+                    Optional<Bills> optBills = billsRepository.findById(Long.parseLong(id.toString()));
+                    if(optBills.isPresent()){
+                        Bills bill = optBills.get();
+                        bill.setAmount(amount);
+                        bill.setName(name);
+                        bill.setPrice(price);
+                        bill.setType(type);
+                        bill.setSubType(subType);
+                        bill.setDateBills(dateBills);
+                        billsRepository.save(bill);
+                        model.addAttribute("success", "delete bill");
+                    }else{
+                    model.addAttribute("error", "user not found in data base");
+                }
+                }else{
+                model.addAttribute("error", "user not found in data base");
+            }
+            if(page== null || page.isEmpty()){
+                return Constants.REDIRECT + "/";
+            }else{
+                return Constants.REDIRECT + page;
+            }
+    }  
 
     private void beforeMonth(Integer month, Integer year,Integer user,Model model, boolean moth){
         double total =0;

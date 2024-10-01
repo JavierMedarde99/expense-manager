@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Modal -->
+<div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="modalUpdateLabel" aria-hidden="true" th:fragment="popUpUpdate">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="modalUpdateLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="modalBody">
+          <form action="" method="post" id="formModalUpdate">
+            <label for="name">name</label>
+            <input type="text" name="name" id="nameUpdate" class="form-control">
+            <label for="price">price</label>
+            <input type="number" name="price" id="priceUpdate" step=0.01 class="form-control">
+            <label for="type">type</label>
+            <select name="type" id="typeUpdate" class="form-select">
+                <option value="variable">variable</option>
+                <option value="fixed">fixed</option>
+            </select>
+            <label for="subtype">subtype</label>
+            <select name="subtype" id="subtypeUpdate" class="form-select">
+                <option value="videogames">videogames</option>
+                <option value="mtg">mtg</option>
+                <option value="book">book</option>
+                <option value="subsctiption">subsctiption</option>
+                <option value="peripherals">peripherals</option>
+                <option value="clothes">clothes</option>
+                <option value="other">other</option>
+            </select>
+            <label for="date">bill date</label>
+            <input type="date" name="dateBills" id="dateUpdate" class="form-control">
+            <label for="amount">amount</label>
+            <input type="number" name="amount" id="amountUpdate" min="1" pattern="^[0-9]+" class="form-control">
+            <button class="btn text-center align-middle">subtmin</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
