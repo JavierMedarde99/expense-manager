@@ -39,7 +39,8 @@
             <input type="number" name="amount" id="amount" min="1" pattern="^[0-9]+" class="form-control">
             <button class="btn text-center align-middle">subtmin</button>
         </form>
-            <table class="table table-primary table-bordered">
+        <h2 th:if="${existsDatabefore != null && existsData != null}"> No data this two actual month</h2>
+            <table class="table table-primary table-bordered" th:if="${existsDatabefore == null && existsData == null}">
                 <tr>
                     <th class="text-bg-dark text-center align-middle">Month</th>
                     <th class="text-bg-dark text-center align-middle">Salary</th>
@@ -47,16 +48,17 @@
                     <th class="text-bg-dark text-center align-middle">Name</th>
                     <th class="text-bg-dark text-center align-middle">bills</th>
                     <th class="text-bg-dark text-center align-middle">amount</th>
-                    <th class="text-bg-dark text-center align-middle">Delete</th>
+                    <th class="text-bg-dark text-center align-middle">Delete/update</th>
+                    
                 </tr>
-                <tr>
+                <tr th:if="${existsDatabefore == null}">
                     <td th:rowspan="${amountBillsBefore}" th:text="${monthBefore}" class="text-center align-middle">
                     </td>
                     <td th:rowspan="${amountBillsBefore}" class="text-center align-middle">1710</td>
                     <td th:rowspan="${amountBillsBefore}" th:text="${revenueBefore}" class="text-center align-middle">
                     </td>
                 </tr>
-                <tr th:each="billBefore: ${billsBefore}">
+                <tr th:each="billBefore: ${billsBefore}" th:if="${existsDatabefore == null}">
                     <td th:text="${billBefore.name}" class="text-center align-middle"></td>
                     <td th:text="${billBefore.price}" class="text-center align-middle"></td>
                     <td th:text="${billBefore.amount}" class="text-center align-middle"></td>
@@ -70,30 +72,28 @@
                                     <path
                                         d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
                                 </svg></button>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="text-center align-middle">
-                            <button
-                                th:onclick="getIDUpdate([[${billBefore.id}]],[[${billBefore.amount}]],[[${billBefore.name}]],[[${billBefore.price}]],[[${billBefore.type}]],[[${billBefore.subType}]],[[${billBefore.dateBills}]])"
-                                type="button" data-bs-toggle="modal" data-bs-target="#modalUpdate" class="btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
-                                    <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
-                                  </svg></button>
+                                
+                                    <button
+                                        th:onclick="getIDUpdate([[${billBefore.id}]],[[${billBefore.amount}]],[[${billBefore.name}]],[[${billBefore.price}]],[[${billBefore.type}]],[[${billBefore.subType}]],[[${billBefore.dateBills}]])"
+                                        type="button" data-bs-toggle="modal" data-bs-target="#modalUpdate" class="btn">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
+                                            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
+                                          </svg></button>
+                                
                         </div>
                     </td>
                 </tr>
-                <tr>
+                <tr th:if="${existsDatabefore == null}">
                     <td class="text-center align-middle">Total</td>
                     <td colspan="3" th:text="${totalBefore}" class="text-center align-middle"></td>
                 </tr>
-                <tr>
+                <tr th:if="${existsData == null}">
                     <td th:rowspan="${amountBills}" th:text="${month}" class="text-center align-middle"></td>
                     <td th:rowspan="${amountBills}" class="text-center align-middle">1710</td>
                     <td th:rowspan="${amountBills}" th:text="${revenue}" class="text-center align-middle"></td>
                 </tr>
-                <tr th:each="bill: ${bills}">
+                <tr th:each="bill: ${bills}" th:if="${existsData == null}">
                     <td th:text="${bill.name}" class="text-center align-middle"></td>
                     <td th:text="${bill.price}" class="text-center align-middle"></td>
                     <td th:text="${bill.amount}" class="text-center align-middle"></td>
@@ -106,18 +106,23 @@
                                     <path
                                         d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
                                 </svg></button>
+                                <button
+                                th:onclick="getIDUpdate([[${bill.id}]],[[${bill.amount}]],[[${bill.name}]],[[${bill.price}]],[[${bill.type}]],[[${bill.subType}]],[[${bill.dateBills}]])"
+                                type="button" data-bs-toggle="modal" data-bs-target="#modalUpdate" class="btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
+                                    <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
+                                  </svg></button>
                         </div>
                     </td>
                 </tr>
-                <tr>
+                <tr th:if="${existsData == null}">
                     <td class="text-center align-middle">Total</td>
                     <td colspan="3" th:text="${total}" class="text-center align-middle"></td>
                 </tr>
 
             </table>
-        <div th:if="${existsData}">
-            <p>No Data</p>
-        </div>
+
         <div>
             <p th:if="${error}" th:text="${error}"></p>
             <p th:if="${success}" th:text="${success}"></p>

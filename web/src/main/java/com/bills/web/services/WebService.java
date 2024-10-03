@@ -10,8 +10,6 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bills.web.entities.Bills;
 import com.bills.web.entities.Users;
@@ -36,43 +34,44 @@ public class WebService {
     private final UsersRepository usersRepository;
 
     private final RevenueMonthRepository revenueMonthRepository;
-    
-    public String dashboardMoth(Model model, HttpSession session){
-        //TODO: cambiarlo cuando cree el login
+
+    public String dashboardMoth(Model model, HttpSession session) {
+        // TODO: cambiarlo cuando cree el login
         session.setAttribute("user", 9);
         Integer user = Integer.parseInt(session.getAttribute("user").toString());
         LocalDate today = LocalDate.now();
         Integer year = today.getYear();
-        Integer month = today.getMonthValue()-1;
-        if(today.getMonthValue() == 1){
-            year = year-1;
+        Integer month = today.getMonthValue() - 1;
+        if (today.getMonthValue() == 1) {
+            year = year - 1;
         }
-        beforeMonth(today.getMonthValue(),today.getYear(),user,model,today.getMonthValue() != LocalDate.now().getMonthValue());
-        beforeMonth(month,year,user,model,!month.equals(LocalDate.now().getMonthValue()));
+        beforeMonth(today.getMonthValue(), today.getYear(), user, model,
+                today.getMonthValue() != LocalDate.now().getMonthValue());
+        beforeMonth(month, year, user, model, !month.equals(LocalDate.now().getMonthValue()));
 
         return "web/index";
     }
 
-    public String moth(Model model,HttpSession session, Integer month, Integer year){
+    public String moth(Model model, HttpSession session, Integer month, Integer year) {
         Integer user = Integer.parseInt(session.getAttribute("user").toString());
         List<MonthArray> monthModel = new ArrayList();
-        for(int i=1; Month.values().length>=i;i++){
-                monthModel.add(new MonthArray(String.valueOf(i), Month.of(i).name()));                
+        for (int i = 1; Month.values().length >= i; i++) {
+            monthModel.add(new MonthArray(String.valueOf(i), Month.of(i).name()));
         }
         List<YearArray> arrayInteger = new ArrayList();
-        for(int i=2023; Integer.parseInt(Year.now().toString())>=i;i++){
+        for (int i = 2023; Integer.parseInt(Year.now().toString()) >= i; i++) {
             arrayInteger.addFirst(new YearArray(String.valueOf(i)));
         }
 
         model.addAttribute("months", monthModel);
         model.addAttribute("years", arrayInteger);
 
-        if(month == null && year == null){
+        if (month == null && year == null) {
             month = LocalDate.now().getMonthValue();
             year = LocalDate.now().getYear();
-        } 
+        }
 
-        beforeMonth(month, year, user, model,false);
+        beforeMonth(month, year, user, model, false);
 
         model.addAttribute("monthCurrent", month);
         model.addAttribute("yearCurrent", year);
@@ -80,61 +79,61 @@ public class WebService {
         return "web/month";
     }
 
-    public String insertBills(String name,Double price,
-    String type, String subtype, LocalDate dateBills, Integer amount, HttpSession session, Model model ){
-        Long idUser = Long.parseLong(session.getAttribute("user").toString()); 
+    public String insertBills(String name, Double price,
+            String type, String subtype, LocalDate dateBills, Integer amount, HttpSession session, Model model) {
+        Long idUser = Long.parseLong(session.getAttribute("user").toString());
         Optional<Users> optUsers = usersRepository.findById(idUser);
-        if(optUsers.isPresent()){
+        if (optUsers.isPresent()) {
             Users user = optUsers.get();
             Bills bill = new Bills(name, price, type, subtype, dateBills, amount, user.getId());
             billsRepository.save(bill);
             model.addAttribute("success", "save find bill");
-        }else{
+        } else {
             model.addAttribute("error", "user not found in data base");
         }
         return Constants.REDIRECT + "/";
     }
 
-    public String deleteBill(Integer id, String page, Integer amount, HttpSession session, Model model){
-        Long idUser = Long.parseLong(session.getAttribute("user").toString()); 
+    public String deleteBill(Integer id, String page, Integer amount, HttpSession session, Model model) {
+        Long idUser = Long.parseLong(session.getAttribute("user").toString());
         Optional<Users> optUsers = usersRepository.findById(idUser);
-        if(optUsers.isPresent()){
-            if(amount == 0){
+        if (optUsers.isPresent()) {
+            if (amount == 0) {
                 billsRepository.deleteById(Long.parseLong(id.toString()));
-            }else{
+            } else {
                 Optional<Bills> optBills = billsRepository.findById(Long.parseLong(id.toString()));
-                if(optBills.isPresent()){
+                if (optBills.isPresent()) {
                     Bills bill = optBills.get();
-                    bill.setAmount(bill.getAmount()-amount);
+                    bill.setAmount(bill.getAmount() - amount);
                     billsRepository.save(bill);
                 }
             }
-            
+
             model.addAttribute("success", "delete bill");
-        }else{
+        } else {
             model.addAttribute("error", "user not found in data base");
         }
 
-        if(page== null || page.isEmpty()){
+        if (page == null || page.isEmpty()) {
             return Constants.REDIRECT + "/";
-        }else{
+        } else {
             return Constants.REDIRECT + page;
         }
-         
+
     }
 
-    public String getYear(HttpSession session, Model model){
-        Long idUser = Long.parseLong(session.getAttribute("user").toString()); 
+    public String getYear(HttpSession session, Model model) {
+        Long idUser = Long.parseLong(session.getAttribute("user").toString());
         Optional<Users> optUsers = usersRepository.findById(idUser);
 
-        if(optUsers.isPresent()){
-            List<Map<String,Object>> listYear = revenueMonthRepository.geyAllYear(idUser);
-            if(listYear.isEmpty()){
+        if (optUsers.isPresent()) {
+            List<Map<String, Object>> listYear = revenueMonthRepository.geyAllYear(idUser);
+            if (listYear.isEmpty()) {
                 model.addAttribute("existsData", false);
-            }else{
+            } else {
                 model.addAttribute("years", listYear);
             }
-            
+
         }
 
         return "web/year";
@@ -143,79 +142,83 @@ public class WebService {
 
     public String updateBill(Model model, HttpSession session, Integer id,
             String page, Integer amount, String name,
-            Double price, String type, String subType, LocalDate dateBills){
-                Long idUser = Long.parseLong(session.getAttribute("user").toString()); 
-                Optional<Users> optUsers = usersRepository.findById(idUser);
-                if(optUsers.isPresent()){
-                    Optional<Bills> optBills = billsRepository.findById(Long.parseLong(id.toString()));
-                    if(optBills.isPresent()){
-                        Bills bill = optBills.get();
-                        bill.setAmount(amount);
-                        bill.setName(name);
-                        bill.setPrice(price);
-                        bill.setType(type);
-                        bill.setSubType(subType);
-                        bill.setDateBills(dateBills);
-                        billsRepository.save(bill);
-                        model.addAttribute("success", "delete bill");
-                    }else{
-                    model.addAttribute("error", "user not found in data base");
-                }
-                }else{
+            Double price, String type, String subType, LocalDate dateBills) {
+        Long idUser = Long.parseLong(session.getAttribute("user").toString());
+        Optional<Users> optUsers = usersRepository.findById(idUser);
+        if (optUsers.isPresent()) {
+            Optional<Bills> optBills = billsRepository.findById(Long.parseLong(id.toString()));
+            if (optBills.isPresent()) {
+                Bills bill = optBills.get();
+                bill.setAmount(amount);
+                bill.setName(name);
+                bill.setPrice(price);
+                bill.setType(type);
+                bill.setSubType(subType);
+                bill.setDateBills(dateBills);
+                billsRepository.save(bill);
+                model.addAttribute("success", "delete bill");
+            } else {
                 model.addAttribute("error", "user not found in data base");
             }
-            if(page== null || page.isEmpty()){
-                return Constants.REDIRECT + "/";
-            }else{
-                return Constants.REDIRECT + page;
-            }
-    }  
+        } else {
+            model.addAttribute("error", "user not found in data base");
+        }
+        if (page == null || page.isEmpty()) {
+            return Constants.REDIRECT + "/";
+        } else {
+            return Constants.REDIRECT + page;
+        }
+    }
 
-    private void beforeMonth(Integer month, Integer year,Integer user,Model model, boolean moth){
-        double total =0;
+    private void beforeMonth(Integer month, Integer year, Integer user, Model model, boolean moth) {
+        double total = 0;
         Integer yearBefore = year;
-        List<Bills> listBills = billsRepository.getOneMonthBills(month, year,user,month,year);
+        List<Bills> listBills = billsRepository.getOneMonthBills(month, year, user, month, year);
 
-        Integer mothBefore = month -1;
+        Integer mothBefore = month - 1;
 
-        if(mothBefore == 0){
+        if (mothBefore == 0) {
             mothBefore = 12;
         }
 
         for (Bills bill : listBills) {
-            total =  total +(bill.getPrice() * bill.getAmount());
+            total = total + (bill.getPrice() * bill.getAmount());
         }
-        if(mothBefore == 12){
-            yearBefore = year-1;
+        if (mothBefore == 12) {
+            yearBefore = year - 1;
         }
         Optional<Double> revenuaLastMoth = revenueMonthRepository.getRevenue(mothBefore, yearBefore);
-        if(listBills.isEmpty()){
-            model.addAttribute("existsData", false);
-        }else{
-            if(moth){
+        if (moth) {
+            if (listBills.isEmpty()) {
+                model.addAttribute("existsData", true);
+            } else {
                 model.addAttribute("billsBefore", listBills);
                 model.addAttribute("totalBefore", total);
                 model.addAttribute("monthBefore", Month.of(month));
-                model.addAttribute("amountBillsBefore", listBills.size()+2);
-                if(revenuaLastMoth.isPresent()){
-                    model.addAttribute("revenueBefore", revenuaLastMoth.get()+Constants.SALARY-total);
-                }else{
-                    model.addAttribute("revenueBefore", Constants.SALARY-total);
+                model.addAttribute("amountBillsBefore", listBills.size() + 2);
+                if (revenuaLastMoth.isPresent()) {
+                    model.addAttribute("revenueBefore", revenuaLastMoth.get() + Constants.SALARY - total);
+                } else {
+                    model.addAttribute("revenueBefore", Constants.SALARY - total);
                 }
-                
-            }else{
+            }
+
+        } else {
+            if (listBills.isEmpty()) {
+                model.addAttribute("existsDatabefore", true);
+            } else {
                 model.addAttribute("bills", listBills);
                 model.addAttribute("total", total);
                 model.addAttribute("month", Month.of(month));
-                model.addAttribute("amountBills", listBills.size()+2);
-                if(revenuaLastMoth.isPresent()){
-                    model.addAttribute("revenue", revenuaLastMoth.get()+Constants.SALARY-total);
-                }else{
-                    model.addAttribute("revenue", Constants.SALARY-total);
+                model.addAttribute("amountBills", listBills.size() + 2);
+                if (revenuaLastMoth.isPresent()) {
+                    model.addAttribute("revenue", revenuaLastMoth.get() + Constants.SALARY - total);
+                } else {
+                    model.addAttribute("revenue", Constants.SALARY - total);
                 }
             }
+
         }
 
-        
     }
 }

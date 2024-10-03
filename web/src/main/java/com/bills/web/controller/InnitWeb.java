@@ -51,10 +51,10 @@ public class InnitWeb {
 
     @PostMapping("/updateBill/{id}")
     public String updateBillController(Model model, HttpSession session, @PathVariable Integer id,
-            @RequestParam(required = false) String page, @RequestParam String amount, @RequestParam String name,
+            @RequestParam(required = false) String page, @RequestParam Integer amount, @RequestParam String name,
             @RequestParam Double price, @RequestParam String type, @RequestParam String subType,
             @RequestParam LocalDate dateBills) {
-        return service.deleteBill(id, page, Integer.parseInt(amount), session, model);
+        return service.updateBill(model, session, id, page, amount, name, price, type, subType, dateBills);
     }
 
     @PostMapping("/insertBills")

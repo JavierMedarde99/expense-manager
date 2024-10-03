@@ -15,7 +15,7 @@ function getID(id, amount,name,page) {
 
 }
 
-function getIDUpdate(id, amount,name,page,price,type,subtype,date){
+function getIDUpdate(id, amount,name,price,type,subtype,date,page){
     let urlForm = "/updateBill/" + id;
     document.getElementById("formModalUpdate").action = urlForm;
 
@@ -37,9 +37,8 @@ function getIDUpdate(id, amount,name,page,price,type,subtype,date){
 function createSelect(amount,name,page) {
 
     createInputHidden(page)
-    
-    inputpage.setAttribute("id", "pageCallBack");
-    document.getElementById("formModal").appendChild(inputpage);
+
+    console.log(amount);
 
     if (amount == 1) {
         let text = document.createElement("p");
@@ -74,4 +73,6 @@ function createInputHidden(page){
     }else{
         inputpage.setAttribute("value", page);
     }
+    inputpage.setAttribute("id", "pageCallBack");
+    document.getElementById("formModal").appendChild(inputpage);
 }
