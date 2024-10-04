@@ -34,13 +34,13 @@
                 <option value="other">other</option>
             </select>
             <label for="date">bill date</label>
-            <input type="date" name="dateBills" id="date" class="form-control">
+            <input type="date" name="dateBills" id="date" class="form-control" th:value="${date}">
             <label for="amount">amount</label>
             <input type="number" name="amount" id="amount" min="1" pattern="^[0-9]+" class="form-control">
             <button class="btn text-center align-middle">subtmin</button>
         </form>
         <h2 th:if="${existsDatabefore != null && existsData != null}"> No data this two actual month</h2>
-            <table class="table table-primary table-bordered" th:if="${existsDatabefore == null && existsData == null}">
+            <table class="table table-primary table-bordered" th:if="${existsDatabefore == null || existsData == null}">
                 <tr>
                     <th class="text-bg-dark text-center align-middle">Month</th>
                     <th class="text-bg-dark text-center align-middle">Salary</th>
@@ -51,14 +51,14 @@
                     <th class="text-bg-dark text-center align-middle">Delete/update</th>
                     
                 </tr>
-                <tr th:if="${existsDatabefore == null}">
+                <tr th:if="${existsData == null}">
                     <td th:rowspan="${amountBillsBefore}" th:text="${monthBefore}" class="text-center align-middle">
                     </td>
                     <td th:rowspan="${amountBillsBefore}" class="text-center align-middle">1710</td>
                     <td th:rowspan="${amountBillsBefore}" th:text="${revenueBefore}" class="text-center align-middle">
                     </td>
                 </tr>
-                <tr th:each="billBefore: ${billsBefore}" th:if="${existsDatabefore == null}">
+                <tr th:each="billBefore: ${billsBefore}" th:if="${existsData == null}">
                     <td th:text="${billBefore.name}" class="text-center align-middle"></td>
                     <td th:text="${billBefore.price}" class="text-center align-middle"></td>
                     <td th:text="${billBefore.amount}" class="text-center align-middle"></td>
@@ -84,16 +84,16 @@
                         </div>
                     </td>
                 </tr>
-                <tr th:if="${existsDatabefore == null}">
+                <tr th:if="${existsData == null}">
                     <td class="text-center align-middle">Total</td>
                     <td colspan="3" th:text="${totalBefore}" class="text-center align-middle"></td>
                 </tr>
-                <tr th:if="${existsData == null}">
+                <tr th:if="${existsDatabefore == null}">
                     <td th:rowspan="${amountBills}" th:text="${month}" class="text-center align-middle"></td>
                     <td th:rowspan="${amountBills}" class="text-center align-middle">1710</td>
                     <td th:rowspan="${amountBills}" th:text="${revenue}" class="text-center align-middle"></td>
                 </tr>
-                <tr th:each="bill: ${bills}" th:if="${existsData == null}">
+                <tr th:each="bill: ${bills}" th:if="${existsDatabefore == null}">
                     <td th:text="${bill.name}" class="text-center align-middle"></td>
                     <td th:text="${bill.price}" class="text-center align-middle"></td>
                     <td th:text="${bill.amount}" class="text-center align-middle"></td>
@@ -116,7 +116,7 @@
                         </div>
                     </td>
                 </tr>
-                <tr th:if="${existsData == null}">
+                <tr th:if="${existsDatabefore == null}">
                     <td class="text-center align-middle">Total</td>
                     <td colspan="3" th:text="${total}" class="text-center align-middle"></td>
                 </tr>

@@ -49,6 +49,8 @@ public class WebService {
                 today.getMonthValue() != LocalDate.now().getMonthValue());
         beforeMonth(month, year, user, model, !month.equals(LocalDate.now().getMonthValue()));
 
+        model.addAttribute("date", LocalDate.now());
+
         return "web/index";
     }
 
