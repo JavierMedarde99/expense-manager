@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Entity
@@ -32,5 +33,12 @@ public class Users {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "user_id")
     private Set<RevenueMonth> revenueMonth;
+
+    public Users(String userName, String email, String password, Double salary) {
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+        this.salary = salary;
+    }
 
 }
