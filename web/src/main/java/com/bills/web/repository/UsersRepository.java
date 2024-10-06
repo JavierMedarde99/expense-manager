@@ -7,8 +7,11 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.bills.web.entities.Users;
 
+
 public interface UsersRepository extends CrudRepository<Users,Long>{
     
-    @Query(value = "SELECT * FROM users WHERE (username =:username OR email =:email) AND password =:password", nativeQuery = true)
+    @Query(value = "SELECT * FROM users WHERE (user_name =:username OR email =:email) AND password =:password", nativeQuery = true)
     Optional<Users> checkLogin(String username, String email, String password);
+
+    Optional<Users> findByUserName(String userName);
 }
