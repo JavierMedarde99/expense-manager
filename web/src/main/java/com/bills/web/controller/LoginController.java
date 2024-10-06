@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bills.web.services.LoginService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -18,9 +19,9 @@ public class LoginController {
     private final LoginService loginService;
 
     @GetMapping("login")
-    public String login(Model model, @RequestParam(required = false) String username,
+    public String login(HttpSession session, Model model, @RequestParam(required = false) String username,
             @RequestParam(required = false) String password) {
-        return loginService.login(model, username, password);
+        return loginService.login(session,model, username, password);
     }
 
     @GetMapping("register")
