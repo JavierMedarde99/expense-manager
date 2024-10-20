@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.bills.web.entities.Users;
+import com.bills.web.model.UserModel;
+import com.bills.web.model.UserRole;
 import com.bills.web.repository.UsersRepository;
 import com.bills.web.utils.Constants;
 
@@ -24,7 +26,6 @@ public class LoginService {
     
     private final UsersRepository usersRepository;
     private final AuthenticationManager authenticationManager;
-    private final JwtService jwtService;
 
     public String login(HttpSession session,Model model, String username,String password){
         if(username == null && password == null){
@@ -36,8 +37,6 @@ public class LoginService {
         if(optUser.isPresent()){
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
             UserDetails user=optUser.get();
-            String token=jwtService.getToken(user);
-            response.addHeader("bar", token);
             return "/web/index";
         }else{
             model.addAttribute("error", "no user found");
