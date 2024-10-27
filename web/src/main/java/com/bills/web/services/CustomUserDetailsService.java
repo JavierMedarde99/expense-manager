@@ -40,7 +40,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         Optional<Users> optUser = usersRepository.findByUserName(username);
         if(optUser.isPresent()){
             Users user = optUser.get();
-            return new UserModel(user.getUsername(),passwordEncoder.encode(user.getPassword()),UserRole.ADMIN);
+            return new UserModel(user.getUsername(),passwordEncoder.encode(user.getPassword()),UserRole.USER);
         }
         return null;
     }

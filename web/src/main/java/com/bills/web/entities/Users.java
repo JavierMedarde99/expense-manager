@@ -77,7 +77,6 @@ public class Users implements UserDetails{
 
     @Override
     public String getUsername() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUsername'");
+        return this.userName;
     }
 }

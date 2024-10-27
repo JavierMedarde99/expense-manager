@@ -26,10 +26,10 @@ public class LoginController {
     @GetMapping("login")
     public String login(HttpSession session, Model model, @RequestParam(required = false) String username,
             @RequestParam(required = false) String password) {
-        return loginService.login(session,model, username, password);
+        return "web/login";
     }
 
-    @PostMapping("loginCheck")
+    @PostMapping("login")
     public String loginCehck(HttpSession session,HttpServletRequest request,HttpServletResponse response ,Model model, @RequestParam String username,
             @RequestParam  String password) {
         return loginService.login(session,model, username, password);
