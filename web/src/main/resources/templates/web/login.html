@@ -18,6 +18,9 @@
                     <input type="password" name="password" id="password">
                     <button class="btn">subtmin</button>
                 </form>
+                <form action="/register" method="post"><button class="btn"> register</button></a>
+                <p th:if="${success}" th:text="${success}"></p>
+                <p th:if="${error}" th:text="${error}"></p>
             </div>
           </div>
     </main>

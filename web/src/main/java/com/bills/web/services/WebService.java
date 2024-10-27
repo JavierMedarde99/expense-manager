@@ -35,9 +35,13 @@ public class WebService {
 
     private final RevenueMonthRepository revenueMonthRepository;
 
-    public String dashboardMoth(Model model, HttpSession session) {
-        // TODO: cambiarlo cuando cree el login
-        session.setAttribute("user", 9);
+    public String dashboardMoth(Model model, HttpSession session, String userName) {
+        try {
+            session.setAttribute("user", usersRepository.findByUserName(userName).get().getId());
+        } catch (Exception e) {
+            return "/login";
+        }
+
         Integer user = Integer.parseInt(session.getAttribute("user").toString());
         LocalDate today = LocalDate.now();
         Integer year = today.getYear();
@@ -222,5 +226,9 @@ public class WebService {
 
         }
 
+    }
+
+    private Long getIdUser(String username) {
+        return usersRepository.findByUserName(username).get().getId();
     }
 }

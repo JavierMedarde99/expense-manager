@@ -2,6 +2,8 @@ package com.bills.web.controller;
 
 import java.time.LocalDate;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bills.web.services.WebService;
 
-import io.micrometer.common.lang.Nullable;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,8 +28,8 @@ public class InnitWeb {
     private final WebService service;
 
     @GetMapping
-    public String initWeb(Model model, HttpSession session) {
-        return service.dashboardMoth(model, session);
+    public String initWeb(Model model, HttpSession session,@AuthenticationPrincipal UserDetails authenticatedUser) {
+        return service.dashboardMoth(model, session,authenticatedUser.getUsername());
     }
 
     @PostMapping("/year")
