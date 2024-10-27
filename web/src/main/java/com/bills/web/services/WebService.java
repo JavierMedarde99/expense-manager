@@ -193,7 +193,7 @@ public class WebService {
         if (mothBefore == 12) {
             yearBefore = year - 1;
         }
-        Optional<Double> revenuaLastMoth = revenueMonthRepository.getRevenue(mothBefore, yearBefore);
+        Optional<Double> revenuaLastMoth = revenueMonthRepository.getRevenue(mothBefore, yearBefore,user);
         if (moth) {
             if (listBills.isEmpty()) {
                 model.addAttribute("existsData", true);

@@ -66,7 +66,7 @@ public class ScheduleService {
             monthBefore = 12;
         }
 
-        Optional<Double> optRevenue = revenueMonthRepository.getRevenue(monthBefore, yearBefore);
+        Optional<Double> optRevenue = revenueMonthRepository.getRevenue(monthBefore, yearBefore,idUser);
 
         if(optRevenue.isPresent()){
             Double revenueBefore = optRevenue.get();
