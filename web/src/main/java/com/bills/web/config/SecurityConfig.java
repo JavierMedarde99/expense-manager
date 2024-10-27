@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .formLogin(form -> form.loginPage("/login")
                         .defaultSuccessUrl("/", true)
                         .permitAll())
-                .logout(LogoutConfigurer::permitAll)
+                .logout(logout -> logout.logoutUrl("/logout"))
                 .cors(cors -> cors.disable())
                 .csrf(csrf -> csrf.disable());
 
