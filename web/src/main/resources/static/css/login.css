@@ -1,0 +1,13 @@
+body {
+    background: url(../images/background_login.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0;
+    height: 100vh;
+}
+
+#images_login {
+    border-radius: 50%;
+    width: 10rem;
+    height: 10rem;
+}
