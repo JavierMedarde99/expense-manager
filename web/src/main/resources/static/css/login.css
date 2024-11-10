@@ -11,3 +11,13 @@ body {
     width: 10rem;
     height: 10rem;
 }
+
+a{
+    text-decoration: none;
+    color: white;
+
+}
+
+#goTo:hover{
+    color: grey !important;
+}

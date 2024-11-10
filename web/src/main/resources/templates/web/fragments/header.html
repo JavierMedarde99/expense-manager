@@ -5,11 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
-  <nav class="navbar bg-body-tertiary" th:fragment="header">
-    <div class="container-fluid">
+  <nav class="navbar navbar-dark bg-body-tertiary page mb-3" th:fragment="header">
+    <div class="d-flex flex-row w-100">
+      <h1 class="text-white me-3">bills web</h1> <!--change to a logo-->
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
         aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -22,21 +24,21 @@
         <div class="offcanvas-body">
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">Dashboard</a>
+              <a class="nav-link active text-black" aria-current="page" href="/">Dashboard</a>
             </li>
             <li class="nav-item">
               <form action="/month" method="post">
-                <button class="nav-link">Month</button>
+                <button class="nav-link text-black">Month</button>
               </form>
             </li>
             <li class="nav-item">
               <form action="/year" method="post">
-                <button class="nav-link">Year</button>
+                <button class="nav-link text-black">Year</button>
               </form>
             </li>
             <li class="nav-item">
               <form action="/logout" method="post">
-                <button class="nav-link">logout</button>
+                <button class="nav-link text-black">logout</button>
               </form>
             </li>
           </ul>

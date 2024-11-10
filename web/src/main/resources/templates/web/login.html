@@ -18,12 +18,13 @@
                     <img src="images/user.png" alt="login" width="150" class="mx-auto d-block mb-5">
                 </div>
                 <form th:action="@{/login}" class="d-flex flex-column " method="post">
-                    <input type="text" name="username" id="username" placeholder="user" class="mb-3">
-                    <input type="password" name="password" id="password" placeholder="password" class="mb-5">
+                    <input type="text" name="username" id="username" placeholder="user" class="form-control mb-3">
+                    <input type="password" name="password" id="password" placeholder="password"
+                        class="form-control mb-5">
                     <button class="btn bg-black text-white">subtmin</button>
                 </form>
                 <form action="/register" method="post"><button class="btn">
-                        <p class="text-white">If you don't have an account yet, register now</p>
+                        <p class="text-white" id="goTo">If you don't have an account yet, register now</p>
                     </button></form>
                 <p th:if="${success}" th:text="${success}"></p>
                 <p th:if="${error}" th:text="${error}"></p>

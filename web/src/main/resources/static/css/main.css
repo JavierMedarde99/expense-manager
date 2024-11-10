@@ -1,0 +1,20 @@
+.page{
+    background-color: #272727 !important;
+}
+
+input, select{
+    border-top: 0 !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+    background-color: #272727 !important;
+    color: white !important;
+    border-radius: 0 !important;
+}
+
+::placeholder{
+    color: white !important;
+}
+
+#button_form{
+    background-color: #E58947 !important;
+}
