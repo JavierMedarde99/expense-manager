@@ -46,15 +46,16 @@
                 <tr>
                     <th class="text-bg-dark text-center align-middle">Month</th>
                     <th class="text-bg-dark text-center align-middle">Salary</th>
-                    <th class="text-bg-dark text-center align-middle">revenue</th>
+                    <th class="text-bg-dark text-center align-middle">Revenue</th>
                     <th class="text-bg-dark text-center align-middle">Name</th>
-                    <th class="text-bg-dark text-center align-middle">bills</th>
-                    <th class="text-bg-dark text-center align-middle">amount</th>
+                    <th class="text-bg-dark text-center align-middle">SubType</th>
+                    <th class="text-bg-dark text-center align-middle">Bills</th>
+                    <th class="text-bg-dark text-center align-middle">Amount</th>
                     <th class="text-bg-dark text-center align-middle">Delete/update</th>
 
                 </tr>
                 <tr th:if="${existsData == null}">
-                    <td th:rowspan="${amountBillsBefore}" th:text="${monthBefore}" class="text-center align-middle">
+                    <td th:rowspan="${amountBillsBefore}" th:text="${monthBefore}" class="text-center align-middle month">
                     </td>
                     <td th:rowspan="${amountBillsBefore}" class="text-center align-middle">1710</td>
                     <td th:rowspan="${amountBillsBefore}" th:text="${revenueBefore}" class="text-center align-middle">
@@ -94,13 +95,15 @@
                     <td colspan="3" th:text="${totalBefore}" class="text-center align-middle"></td>
                 </tr>
                 <tr th:if="${existsDatabefore == null}">
-                    <td th:rowspan="${amountBills}" th:text="${month}" class="text-center align-middle"></td>
+                    <td th:rowspan="${amountBills}" th:text="${month}" class="text-center align-middle month"></td>
                     <td th:rowspan="${amountBills}" class="text-center align-middle">1710</td>
                     <td th:rowspan="${amountBills}" th:text="${revenue}" class="text-center align-middle"></td>
                 </tr>
                 <tr th:each="bill: ${bills}" th:if="${existsDatabefore == null}">
+                    <td hidden th:text="${bill.id}" th:classappend="|${month}_id|"></td>
                     <td th:text="${bill.name}" class="text-center align-middle"></td>
-                    <td th:text="${bill.price}" class="text-center align-middle"></td>
+                    <td th:text="${bill.subType}" class="text-center align-middle"></td>
+                    <td th:text="${bill.price}" class="text-center align-middle" th:id="|${month}_${bill.id}_price|"></td>
                     <td th:text="${bill.amount}" class="text-center align-middle"></td>
                     <td>
                         <div class="text-center align-middle">
@@ -126,7 +129,7 @@
                 </tr>
                 <tr th:if="${existsDatabefore == null}">
                     <td class="text-center align-middle">Total</td>
-                    <td colspan="3" th:text="${total}" class="text-center align-middle"></td>
+                    <td colspan="4" th:text="${total}" class="text-center align-middle"></td>
                 </tr>
 
             </table>
@@ -141,6 +144,9 @@
     <div th:insert="~{web/fragments/popUpDelete :: popUpDelete}"></div>
     <div th:insert="~{web/fragments/popUpUpdate :: popUpUpdate}"></div>
 
+    <div id="graph">
+
+    </div>
     <div style="width: 400px; height: 200px;">
         <canvas id="myChart"></canvas>
     </div>
