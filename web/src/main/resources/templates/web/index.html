@@ -17,7 +17,7 @@
         <div id="form" class="mb-5 ms-3">
             <form action="/insertBills" method="post">
                 <div class="d-flex flex-row justify-content-around">
-                <input type="text" name="name" id="name" class="form-control me-5" placeholder="user" >
+                <input type="text" name="name" id="name" class="form-control me-5" placeholder="name" >
                 <input type="number" name="price" id="price" step=0.01 class="form-control me-5" placeholder="price">
                 <select name="type" id="type" class="form-select me-5">
                     <option selected>type</option>
@@ -62,9 +62,11 @@
                     </td>
                 </tr>
                 <tr th:each="billBefore: ${billsBefore}" th:if="${existsData == null}">
+                    <td hidden th:text="${billBefore.id}" th:classappend="|${monthBefore}_id|"></td>
                     <td th:text="${billBefore.name}" class="text-center "></td>
-                    <td th:text="${billBefore.price}" class="text-center align-middle"></td>
-                    <td th:text="${billBefore.amount}" class="text-center align-middle"></td>
+                    <td th:text="${billBefore.subType}" class="text-center align-middle"  th:id="|${monthBefore}_${billBefore.id}_type|"></td>
+                    <td th:text="${billBefore.price}" class="text-center align-middle" th:id="|${monthBefore}_${billBefore.id}_price|"></td>
+                    <td th:text="${billBefore.amount}" class="text-center align-middle" th:id="|${monthBefore}_${billBefore.id}_amount|"></td>
                     <td>
                         <div class="text-center align-middle">
                             <button
@@ -92,7 +94,7 @@
                 </tr>
                 <tr th:if="${existsData == null}">
                     <td class="text-center align-middle">Total</td>
-                    <td colspan="3" th:text="${totalBefore}" class="text-center align-middle"></td>
+                    <td colspan="4" th:text="${totalBefore}" class="text-center align-middle" th:id="|${monthBefore}_total|"></td>
                 </tr>
                 <tr th:if="${existsDatabefore == null}">
                     <td th:rowspan="${amountBills}" th:text="${month}" class="text-center align-middle month"></td>
@@ -102,9 +104,9 @@
                 <tr th:each="bill: ${bills}" th:if="${existsDatabefore == null}">
                     <td hidden th:text="${bill.id}" th:classappend="|${month}_id|"></td>
                     <td th:text="${bill.name}" class="text-center align-middle"></td>
-                    <td th:text="${bill.subType}" class="text-center align-middle"></td>
+                    <td th:text="${bill.subType}" class="text-center align-middle"  th:id="|${month}_${bill.id}_type|"></td>
                     <td th:text="${bill.price}" class="text-center align-middle" th:id="|${month}_${bill.id}_price|"></td>
-                    <td th:text="${bill.amount}" class="text-center align-middle"></td>
+                    <td th:text="${bill.amount}" class="text-center align-middle"  th:id="|${month}_${bill.id}_amount|"></td>
                     <td>
                         <div class="text-center align-middle">
                             <button th:onclick="getID([[${bill.id}]],[[${bill.amount}]],[[${bill.name}]],'')"
@@ -129,7 +131,7 @@
                 </tr>
                 <tr th:if="${existsDatabefore == null}">
                     <td class="text-center align-middle">Total</td>
-                    <td colspan="4" th:text="${total}" class="text-center align-middle"></td>
+                    <td colspan="4" th:text="${total}" class="text-center align-middle" th:id="|${month}_total|"></td>
                 </tr>
 
             </table>
@@ -144,11 +146,8 @@
     <div th:insert="~{web/fragments/popUpDelete :: popUpDelete}"></div>
     <div th:insert="~{web/fragments/popUpUpdate :: popUpUpdate}"></div>
 
-    <div id="graph">
+    <div id="graph" class="d-flex flex-row justify-content-evenly w-100 h-25">
 
-    </div>
-    <div style="width: 400px; height: 200px;">
-        <canvas id="myChart"></canvas>
     </div>
 
 </body>
@@ -157,32 +156,5 @@
     crossorigin="anonymous"></script>
 <script src="js/index.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    // Obtén el canvas element
-    var ctx = document.getElementById('myChart').getContext('2d');
-
-    let labelsData = ["patata", "patata2"]
-
-    // Crea un nuevo objeto Chart con opciones
-    var chart = new Chart(ctx, {
-        // Configuración del tipo de gráfico
-        type: 'doughnut',
-
-        // Datos del gráfico
-        data: {
-            labels: labelsData,
-            datasets: [{
-                label: 'My First Dataset',
-                data: [300, 50, 100],
-                backgroundColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(54, 162, 235)',
-                    'rgb(255, 205, 86)'
-                ],
-                hoverOffset: 4
-            }]
-        }
-    });
-</script>
-
+<script src="js/graph.js"></script>
 </html>
