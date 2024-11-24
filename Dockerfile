@@ -1,4 +1,5 @@
 FROM amazoncorretto:21-alpine-jdk AS builder
+RUN mvn clean package -DskipTests
 ARG JAR_FILE=web/target/web.jar
 COPY ${JAR_FILE} web.jar
 RUN java -Djarmode=layertools -jar web.jar extract
