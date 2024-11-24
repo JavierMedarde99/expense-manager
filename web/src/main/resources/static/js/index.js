@@ -43,16 +43,22 @@ function createSelect(amount,name,page) {
     if (amount == 1) {
         let text = document.createElement("p");
         text.setAttribute("id", "selectAmount");
-        document.getElementById("modalBody").appendChild(text);
+        document.getElementById("text-delete").appendChild(text);
         let textElement = "You want to delete the expense with the name " + name;
         document.getElementById("selectAmount").insertAdjacentText("afterbegin", textElement);
 
     } else {
 
+        let text = document.createElement("p");
+        text.setAttribute("id", "selectAmount");
+        document.getElementById("text-delete").appendChild(text);
+        let textElement = "You want to delete the expense with the name " + name+". Amount:";
+        document.getElementById("selectAmount").insertAdjacentText("afterbegin", textElement);
+
         let selectAmount = document.createElement("select");
         selectAmount.setAttribute("id", "selectAmount");
         selectAmount.setAttribute("name", "amount");
-        document.getElementById("formModal").appendChild(selectAmount);
+        document.getElementById("text-delete").appendChild(selectAmount);
 
         for (let i = 1; i <= amount; i++) {
             let option = document.createElement("option");

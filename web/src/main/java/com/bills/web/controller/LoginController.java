@@ -22,14 +22,17 @@ public class LoginController {
     @GetMapping("login")
     public String login(HttpSession session, Model model, @RequestParam(required = false) String username,
             @RequestParam(required = false) String password) {
+        if (session.getAttribute("success") != null) {
+            model.addAttribute("success", session.getAttribute("success").toString());
+        }
         return "web/login";
     }
 
     @PostMapping("register")
     public String register(Model model, @RequestParam(required = false) String username,
             @RequestParam(required = false) String email, @RequestParam(required = false) String password,
-            @RequestParam(required = false) Double salary) {
-        return loginService.register(model, username, email, password, salary);
+            @RequestParam(required = false) Double salary, HttpSession session) {
+        return loginService.register(model, username, email, password, salary, session);
     }
 
 }

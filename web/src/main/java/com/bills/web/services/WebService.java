@@ -37,7 +37,9 @@ public class WebService {
 
     public String dashboardMoth(Model model, HttpSession session, String userName) {
         try {
-            session.setAttribute("user", usersRepository.findByUserName(userName).get().getId());
+            Users user = usersRepository.findByUserName(userName).get();
+            session.setAttribute("salary", user.getSalary());
+            session.setAttribute("user", user.getId());
         } catch (Exception e) {
             return "/login";
         }
@@ -54,12 +56,13 @@ public class WebService {
         beforeMonth(month, year, user, model, !month.equals(LocalDate.now().getMonthValue()));
 
         model.addAttribute("date", LocalDate.now());
-
+        model.addAttribute("salary", session.getAttribute("salary"));
         return "web/index";
     }
 
     public String moth(Model model, HttpSession session, Integer month, Integer year) {
         Integer user = Integer.parseInt(session.getAttribute("user").toString());
+        String salary = session.getAttribute("salary").toString();
         List<MonthArray> monthModel = new ArrayList();
         for (int i = 1; Month.values().length >= i; i++) {
             monthModel.add(new MonthArray(String.valueOf(i), Month.of(i).name()));
@@ -81,6 +84,7 @@ public class WebService {
 
         model.addAttribute("monthCurrent", month);
         model.addAttribute("yearCurrent", year);
+        model.addAttribute("salary", salary);
 
         return "web/month";
     }

@@ -13,7 +13,7 @@
 <body class="page">
     <header th:insert="~{web/fragments/header :: header}" class="d-flex flex-column">
     </header>
-    <div id="form" class="mb-5 ms-3"></div>
+    <div id="form" class="mb-5 ms-3">
     <form action="/month" method="post">
         <div class="d-flex flex-row justify-content-around">
         <select name="month" id="month" class="form-select me-5">
@@ -32,7 +32,7 @@
         <button class="btn text-center align-middle text-white mt-5" id="button_form">submit</button>
     </form>
     </div>
-    <h2 th:if="${existsDatabefore != null}"> Not data this month</h2>
+    <h2 th:if="${existsDatabefore != null}" class="text-info border border-info text-center"> Not data this month</h2>
     <div id="table">
     <table class="table table-primary table-bordered" th:if="${existsDatabefore == null}">
         <tr>
@@ -46,8 +46,8 @@
             <th class="text-bg-dark text-center align-middle">Amount</th>
         </tr>
         <tr>
-            <td th:rowspan="${amountBills}" th:text="${month}" class="text-center align-middle"></td>
-            <td th:rowspan="${amountBills}" class="text-center align-middle">1710</td>
+            <td th:rowspan="${amountBills}" th:text="${month}" class="text-center align-middle month"></td>
+            <td th:rowspan="${amountBills}" class="text-center align-middle" th:text="${salary}"></td>
             <td th:rowspan="${amountBills}" th:text="${revenue}" class="text-center align-middle"></td>
         </tr>
         <tr th:each="bill: ${bills}">
