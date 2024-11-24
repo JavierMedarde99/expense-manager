@@ -1,5 +1,7 @@
 package com.bills.web.services;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +42,10 @@ public class CustomUserDetailsService implements UserDetailsService {
         Optional<Users> optUser = usersRepository.findByUserName(username);
         if(optUser.isPresent()){
             Users user = optUser.get();
-            return new UserModel(user.getUsername(),passwordEncoder.encode(user.getPassword()),UserRole.USER);
+            return new UserModel(user.getUsername(),user.getPassword(),UserRole.USER);
         }
         return null;
     }
+
     
 }
