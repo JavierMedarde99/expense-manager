@@ -41,7 +41,7 @@ public class WebService {
             session.setAttribute("salary", user.getSalary());
             session.setAttribute("user", user.getId());
         } catch (Exception e) {
-            return "/login";
+            return "login";
         }
 
         Integer user = Integer.parseInt(session.getAttribute("user").toString());
