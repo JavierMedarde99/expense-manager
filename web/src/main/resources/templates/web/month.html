@@ -14,7 +14,7 @@
     <header th:insert="~{web/fragments/header :: header}" class="d-flex flex-column">
     </header>
     <div id="form" class="mb-5 ms-3">
-    <form action="/month" method="post">
+    <form action="month" method="post">
         <div class="d-flex flex-row justify-content-around">
         <select name="month" id="month" class="form-select me-5">
             <div th:each="month : ${months}">
