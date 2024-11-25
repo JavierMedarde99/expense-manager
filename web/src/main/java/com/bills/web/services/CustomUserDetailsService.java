@@ -17,6 +17,9 @@ import com.bills.web.model.UserModel;
 import com.bills.web.model.UserRole;
 import com.bills.web.repository.UsersRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
@@ -27,6 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        log.info("try to login. : {}",username);
         UserModel byLogin = getUser(username);
         if (byLogin == null) {
             return null;

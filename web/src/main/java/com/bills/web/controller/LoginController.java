@@ -11,9 +11,11 @@ import com.bills.web.services.LoginService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 @RequestMapping("/")
 public class LoginController {
 
@@ -32,6 +34,7 @@ public class LoginController {
     public String register(Model model, @RequestParam(required = false) String username,
             @RequestParam(required = false) String email, @RequestParam(required = false) String password,
             @RequestParam(required = false) Double salary, HttpSession session) {
+                log.info("register : {}",username);
         return loginService.register(model, username, email, password, salary, session);
     }
 
