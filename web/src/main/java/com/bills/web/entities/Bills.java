@@ -2,11 +2,16 @@ package com.bills.web.entities;
 
 import java.time.LocalDate;
 
+import org.hibernate.annotations.ManyToAny;
+
 import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,12 +33,15 @@ public class Bills {
     @Nullable
     private LocalDate dateBills;
     private Integer amount;
-    private Long idUser;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Users idUser;
 
 
 
     public Bills(String name, Double price, String type, String subType, LocalDate dateBills,
-    Integer amount, Long idUser){
+    Integer amount, Users idUser){
 
         this.name = name;
         this.price= price;

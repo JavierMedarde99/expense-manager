@@ -41,7 +41,7 @@ public class ScheduleService {
         for (Users users : listUSer) {
             Double total =getTotalBills(month, year, year);
             Double revenue = getRevenue(month, year, Integer.parseInt(users.getId().toString()), users.getSalary(), total);
-            RevenueMonth montEntity = new RevenueMonth(month, year, revenue, users.getId(), total, revenue);
+            RevenueMonth montEntity = new RevenueMonth(month, year, revenue, users, total, revenue);
             revenueMonthRepository.save(montEntity);
 
         }

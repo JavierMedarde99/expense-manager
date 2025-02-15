@@ -8,11 +8,11 @@ function getID(id, amount,name,page) {
 
     if (document.getElementById("selectAmount") == null) {
         createSelect(amount,name,page);
-    } else {
+    }else{
         document.getElementById("selectAmount").remove();
+        document.getElementById("selectText").remove();
         createSelect(amount,name,page);
     }
-
 }
 
 function getIDUpdate(id, amount,name,price,type,subtype,date,page){
@@ -42,18 +42,22 @@ function createSelect(amount,name,page) {
 
     if (amount == 1) {
         let text = document.createElement("p");
-        text.setAttribute("id", "selectAmount");
+        text.setAttribute("id", "selectText");
         document.getElementById("text-delete").appendChild(text);
         let textElement = "You want to delete the expense with the name " + name;
-        document.getElementById("selectAmount").insertAdjacentText("afterbegin", textElement);
+        document.getElementById("selectText").insertAdjacentText("afterbegin", textElement);
 
     } else {
 
         let text = document.createElement("p");
-        text.setAttribute("id", "selectAmount");
+        text.setAttribute("id", "selectText");
         document.getElementById("text-delete").appendChild(text);
         let textElement = "You want to delete the expense with the name " + name+". Amount:";
-        document.getElementById("selectAmount").insertAdjacentText("afterbegin", textElement);
+        document.getElementById("selectText").insertAdjacentText("afterbegin", textElement);
+
+        if(document.getElementById("selectAmount") != null){
+            document.getElementById("selectAmount").remove();
+        }
 
         let selectAmount = document.createElement("select");
         selectAmount.setAttribute("id", "selectAmount");

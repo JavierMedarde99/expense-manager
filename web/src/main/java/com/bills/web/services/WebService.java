@@ -45,6 +45,7 @@ public class WebService {
         }
 
         Integer user = Integer.parseInt(session.getAttribute("user").toString());
+        Double salary = Double.parseDouble(session.getAttribute("salary").toString());
         LocalDate today = LocalDate.now();
         Integer year = today.getYear();
         Integer month = today.getMonthValue() - 1;
@@ -52,8 +53,8 @@ public class WebService {
             year = year - 1;
         }
         beforeMonth(today.getMonthValue(), today.getYear(), user, model,
-                today.getMonthValue() != LocalDate.now().getMonthValue());
-        beforeMonth(month, year, user, model, !month.equals(LocalDate.now().getMonthValue()));
+                today.getMonthValue() != LocalDate.now().getMonthValue(),salary);
+        beforeMonth(month, year, user, model, !month.equals(LocalDate.now().getMonthValue()),salary);
 
         model.addAttribute("date", LocalDate.now());
         model.addAttribute("salary", session.getAttribute("salary"));
@@ -80,7 +81,7 @@ public class WebService {
             year = LocalDate.now().getYear();
         }
 
-        beforeMonth(month, year, user, model, false);
+        beforeMonth(month, year, user, model, false,Double.parseDouble(salary));
 
         model.addAttribute("monthCurrent", month);
         model.addAttribute("yearCurrent", year);
@@ -95,7 +96,7 @@ public class WebService {
         Optional<Users> optUsers = usersRepository.findById(idUser);
         if (optUsers.isPresent()) {
             Users user = optUsers.get();
-            Bills bill = new Bills(name, price, type, subtype, dateBills, amount, user.getId());
+            Bills bill = new Bills(name, price, type, subtype, dateBills, amount, user);
             billsRepository.save(bill);
             model.addAttribute("success", "save find bill");
         } else {
@@ -180,7 +181,7 @@ public class WebService {
         }
     }
 
-    private void beforeMonth(Integer month, Integer year, Integer user, Model model, boolean moth) {
+    private void beforeMonth(Integer month, Integer year, Integer user, Model model, boolean moth,Double salary) {
         double total = 0;
         Integer yearBefore = year;
         List<Bills> listBills = billsRepository.getOneMonthBills(month, year, user, month, year);
@@ -207,9 +208,9 @@ public class WebService {
                 model.addAttribute("monthBefore", Month.of(month));
                 model.addAttribute("amountBillsBefore", listBills.size() + 2);
                 if (revenuaLastMoth.isPresent()) {
-                    model.addAttribute("revenueBefore", revenuaLastMoth.get() + Constants.SALARY - total);
+                    model.addAttribute("revenueBefore", revenuaLastMoth.get() + salary - total);
                 } else {
-                    model.addAttribute("revenueBefore", Constants.SALARY - total);
+                    model.addAttribute("revenueBefore", salary - total);
                 }
             }
 
@@ -222,17 +223,13 @@ public class WebService {
                 model.addAttribute("month", Month.of(month));
                 model.addAttribute("amountBills", listBills.size() + 2);
                 if (revenuaLastMoth.isPresent()) {
-                    model.addAttribute("revenue", revenuaLastMoth.get() + Constants.SALARY - total);
+                    model.addAttribute("revenue", revenuaLastMoth.get() + salary - total);
                 } else {
-                    model.addAttribute("revenue", Constants.SALARY - total);
+                    model.addAttribute("revenue", salary - total);
                 }
             }
 
         }
 
-    }
-
-    private Long getIdUser(String username) {
-        return usersRepository.findByUserName(username).get().getId();
     }
 }
