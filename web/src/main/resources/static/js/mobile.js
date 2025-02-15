@@ -1,3 +1,4 @@
 if (window.innerWidth <= 600) {
-    console.log("Es un móvil");
+    const table = document.getElementById("table");
+    table.style.overflow = "auto";
 }
