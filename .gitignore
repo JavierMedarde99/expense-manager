@@ -31,3 +31,4 @@ build/
 !**/src/test/**/build/
 ../.vscode
 .env
+.vscode/

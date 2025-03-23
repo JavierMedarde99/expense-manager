@@ -1,7 +1,5 @@
 package com.bills.web.services;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.bills.web.entities.Users;
 import com.bills.web.model.UserModel;
-import com.bills.web.model.UserRole;
+import com.bills.web.model.UserModel.UserRole;
 import com.bills.web.repository.UsersRepository;
 
 import lombok.extern.slf4j.Slf4j;

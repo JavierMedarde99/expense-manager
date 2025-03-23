@@ -2,7 +2,7 @@ package com.bills.web.entities;
 
 import java.time.LocalDate;
 
-import org.hibernate.annotations.ManyToAny;
+import com.bills.web.model.BillDto;
 
 import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.Entity;
@@ -11,7 +11,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,17 +37,13 @@ public class Bills {
     @JoinColumn(name = "user_id")
     private Users idUser;
 
-
-
-    public Bills(String name, Double price, String type, String subType, LocalDate dateBills,
-    Integer amount, Users idUser){
-
-        this.name = name;
-        this.price= price;
-        this.type = type;
-        this.subType = subType;
-        this.dateBills = dateBills;
-        this.amount = amount;
+    public Bills(BillDto billDto, Users idUser){
+        this.name = billDto.getName();
+        this.price = billDto.getPrice();
+        this.type = billDto.getType();
+        this.subType = billDto.getSubType();
+        this.dateBills = billDto.getDateBills();
+        this.amount = billDto.getAmount();
         this.idUser = idUser;
     }
 }

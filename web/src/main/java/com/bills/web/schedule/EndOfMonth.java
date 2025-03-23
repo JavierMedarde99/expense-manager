@@ -13,7 +13,7 @@ public class EndOfMonth {
 
     private final ScheduleService scheduleService;
 
-    @Scheduled(cron = "1 0 1 * * *")//TODO: change cron
+    @Scheduled(cron = "1 0 1 * * *")
     public void scheduleNewMonth(){
         scheduleService.endOfMonth();
     }
