@@ -19,7 +19,7 @@
                     <img src="images/register.png" alt="login" width="150" class="mx-auto d-block mb-5">
                 </div>
                 <p th:if="${error}" th:text="${error}" class="text-danger border border-danger text-center"></p>
-                <form action="register" class="d-flex flex-column" method="post">
+                <form action="register" class="d-flex flex-column" method="post" id="form">
                     <input type="text" name="username" id="username" placeholder="user" class="mb-3 form-control" required>
                     <input type="text" name="email" id="email" placeholder="email" class="mb-3 form-control" required>
                     <input type="number" name="salary" id="salary" step=0.01 placeholder="salary"
