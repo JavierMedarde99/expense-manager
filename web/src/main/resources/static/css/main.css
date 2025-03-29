@@ -19,7 +19,9 @@ input, select{
     background-color: #E58947 !important;
 }
 
-
+.offcanvas{
+    background-color: #f3faee !important;
+}
 @media screen and (max-width: 600px) {
     #form-div{
         flex-wrap: wrap;
