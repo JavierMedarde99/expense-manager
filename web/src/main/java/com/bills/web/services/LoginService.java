@@ -42,4 +42,15 @@ public class LoginService {
         }
 
     }
+
+    public String deleteUser(HttpSession session) {
+        try {
+            usersRepository.deleteById(Long.parseLong(session.getAttribute("user").toString()));
+            session.setAttribute("success", "you have deleted the user successfully");
+            return Constants.REDIRECT + "/logout";
+        } catch (Exception e) {
+            log.error("error to delete the user. Error: {}", e.getMessage(), e);
+            return "web/login";
+        }
+    }
 }

@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
 @Controller
 @RequiredArgsConstructor
 @Slf4j
@@ -42,5 +43,11 @@ public class LoginController {
         log.info("register call. QueryString {}",request.getQueryString());
         return loginService.register(model, username, email, password, salary, session);
     }
+
+    @PostMapping("deleteUser")
+    public String postMethodName(HttpSession session) {
+        return loginService.deleteUser(session);
+    }
+    
 
 }
