@@ -17,15 +17,15 @@
         <div id="form" class="mb-5 ms-3">
             <form action="insertBills" method="post">
                 <div class="d-flex flex-row justify-content-around" id="form-div">
-                    <input type="text" name="name" id="name" class="form-control me-5 mb-3" placeholder="name">
+                    <input type="text" name="name" id="name" class="form-control me-5 mb-3" placeholder="name" required>
                     <input type="number" name="price" id="price" step=0.01 class="form-control me-5 mb-3"
-                        placeholder="price">
-                    <select name="type" id="type" class="form-select me-5 mb-3">
+                        placeholder="price" required>
+                    <select name="type" id="type" class="form-select me-5 mb-3" required>
                         <option selected>type</option>
                         <option value="variable">variable</option>
                         <option value="fixed">fixed</option>
                     </select>
-                    <select name="subtype" id="subtype" class="form-select me-5 mb-3">
+                    <select name="subtype" id="subtype" class="form-select me-5 mb-3" required>
                         <option selected>subtype</option>
                         <option value="videogames">videogames</option>
                         <option value="mtg">mtg</option>
@@ -35,9 +35,9 @@
                         <option value="clothes">clothes</option>
                         <option value="other">other</option>
                     </select>
-                    <input type="date" name="dateBills" id="date" class="form-control me-5 mb-3" th:value="${date}">
+                    <input type="date" name="dateBills" id="date" class="form-control me-5 mb-3" th:value="${date}" required>
                     <input type="number" name="amount" id="amount" min="1" pattern="^[0-9]+"
-                        class="form-control me-5 mb-3" placeholder="amount">
+                        class="form-control me-5 mb-3" placeholder="amount" required>
                 </div>
                 <button class="btn text-center align-middle text-white mt-5" id="button_form">subtmin</button>
             </form>

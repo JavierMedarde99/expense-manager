@@ -16,13 +16,13 @@
         <div id="form" class="mb-5 ms-3">
             <form action="month" method="post">
                 <div class="d-flex flex-row justify-content-around">
-                    <select name="month" id="month" class="form-select me-5 mb-3">
+                    <select name="month" id="month" class="form-select me-5 mb-3" required>
                         <div th:each="month : ${months}">
                             <option th:value="${month.value}" th:text="${month.name}"
                                 th:selected="${month.value} eq ${monthCurrent}"></option>
                         </div>
                     </select>
-                    <select name="year" id="year" class="form-select me-5 mb-3">
+                    <select name="year" id="year" class="form-select me-5 mb-3" required>
                         <div th:each="years : ${years}">
                             <option th:value="${years.value}" th:text="${years.value}"
                                 th:selected="${years.value} eq ${yearCurrent}"></option>

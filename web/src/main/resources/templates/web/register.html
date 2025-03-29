@@ -19,12 +19,12 @@
                 </div>
                 <p th:if="${error}" th:text="${error}" class="text-danger border border-danger text-center"></p>
                 <form action="register" class="d-flex flex-column" method="post">
-                    <input type="text" name="username" id="username" placeholder="user" class="mb-3 form-control">
-                    <input type="text" name="email" id="email" placeholder="email" class="mb-3 form-control">
+                    <input type="text" name="username" id="username" placeholder="user" class="mb-3 form-control" required>
+                    <input type="text" name="email" id="email" placeholder="email" class="mb-3 form-control" required>
                     <input type="number" name="salary" id="salary" step=0.01 placeholder="salary"
-                        class="mb-3 form-control">
+                        class="mb-3 form-control" required>
                     <input type="password" name="password" id="password" placeholder="password"
-                        class="mb-5 form-control">
+                        class="mb-5 form-control" required>
                     <button class="btn bg-black text-white">subtmin</button>
                 </form>
                 <a href="login" class="mt-3">
