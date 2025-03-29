@@ -14,8 +14,8 @@
     <header th:insert="~{web/fragments/header :: header}" class="d-flex flex-column">
     </header>
     <main class="flex-grow-1 w-100">
-        <div id="form" class="mb-5 ms-3">
-            <form action="insertBills" method="post">
+        <div class="mb-5 ms-3">
+            <form action="insertBills" method="post" id="form">
                 <div class="d-flex flex-row justify-content-around" id="form-div">
                     <input type="text" name="name" id="name" class="form-control me-5 mb-3" placeholder="name" required>
                     <input type="number" name="price" id="price" step=0.01 class="form-control me-5 mb-3"

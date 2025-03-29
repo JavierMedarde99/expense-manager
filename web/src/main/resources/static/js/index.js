@@ -86,3 +86,32 @@ function createInputHidden(page){
     inputpage.setAttribute("id", "pageCallBack");
     document.getElementById("formModal").appendChild(inputpage);
 }
+
+const formElement = document.getElementById("form");
+
+formElement.addEventListener("submit", function (event) {
+    addSpinner(event);
+})
+
+function addSpinner(event) {
+    let button = document.getElementById("button_form");
+    button.hidden = true;
+    let form = button.parentElement;
+    let flexSpinner = document.createElement("div");
+    flexSpinner.classList.add("d-flex");
+    flexSpinner.classList.add("justify-content-center");
+    let spinner = document.createElement("div");
+    spinner.classList.add("spinner-border");
+    spinner.classList.add("spinner-border-sm");
+    spinner.classList.add("text-black");
+    spinner.setAttribute("role", "status");
+    spinner.setAttribute("aria-hidden", "true");
+    spinner.style.width = "1.5rem";
+    spinner.style.height = "1.5rem";
+    let span = document.createElement("span");
+    span.classList.add("visually-hidden");
+    span.innerText = "Loading...";
+    flexSpinner.appendChild(spinner);
+    spinner.appendChild(span);
+    form.appendChild(flexSpinner);
+}

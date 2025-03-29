@@ -13,8 +13,8 @@
 <body class="page d-flex flex-column vh-100">
     <header th:insert="~{web/fragments/header :: header}" class="d-flex flex-column"></header>
     <main class="flex-grow-1 w-100">
-        <div id="form" class="mb-5 ms-3">
-            <form action="month" method="post">
+        <div  class="mb-5 ms-3">
+            <form action="month" method="post" id="form">
                 <div class="d-flex flex-row justify-content-around">
                     <select name="month" id="month" class="form-select me-5 mb-3" required>
                         <div th:each="month : ${months}">
