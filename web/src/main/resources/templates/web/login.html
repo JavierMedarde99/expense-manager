@@ -20,9 +20,9 @@
                     <img src="images/user.png" alt="login" width="150" class="mx-auto d-block mb-5">
                 </div>
                 <form th:action="@{login}" class="d-flex flex-column " method="post" id="form">
-                    <input type="text" name="username" id="username" placeholder="user" class="form-control mb-3">
+                    <input type="text" name="username" id="username" placeholder="user" class="form-control mb-3" required>
                     <input type="password" name="password" id="password" placeholder="password"
-                        class="form-control mb-5">
+                        class="form-control mb-5" required>
                     <p th:if="${success}" th:text="${success}" class="text-success border border-success text-center"></p>
                     <p th:if="${error}" th:text="${error}" class="text-danger border border-danger text-center"></p>
                     <button class="btn bg-black text-white"  id="button_form">subtmin</button>
