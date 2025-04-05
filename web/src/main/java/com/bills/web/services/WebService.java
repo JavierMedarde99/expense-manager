@@ -1,5 +1,6 @@
 package com.bills.web.services;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
@@ -275,7 +276,7 @@ public class WebService {
     }
 
     private void beforeMonth(Integer month, Integer year, Integer user, Model model, boolean moth, Double salary) {
-
+        DecimalFormat df = new DecimalFormat("#.##");
         double total = 0;
         Integer yearBefore = year;
         List<Bills> listBills = billsRepository.getOneMonthBills(month, year, user, month, year);
@@ -302,9 +303,9 @@ public class WebService {
                 model.addAttribute("monthBefore", Month.of(month));
                 model.addAttribute("amountBillsBefore", listBills.size() + 2);
                 if (revenuaLastMoth.isPresent()) {
-                    model.addAttribute("revenueBefore", revenuaLastMoth.get() + salary - total);
+                    model.addAttribute("revenueBefore", df.format(revenuaLastMoth.get() + salary - total));
                 } else {
-                    model.addAttribute("revenueBefore", salary - total);
+                    model.addAttribute("revenueBefore", df.format(salary - total));
                 }
             }
 
@@ -317,9 +318,9 @@ public class WebService {
                 model.addAttribute("month", Month.of(month));
                 model.addAttribute("amountBills", listBills.size() + 2);
                 if (revenuaLastMoth.isPresent()) {
-                    model.addAttribute("revenue", revenuaLastMoth.get() + salary - total);
+                    model.addAttribute("revenue", df.format(revenuaLastMoth.get() + salary - total));
                 } else {
-                    model.addAttribute("revenue", salary - total);
+                    model.addAttribute("revenue", df.format(salary - total));
                 }
             }
 

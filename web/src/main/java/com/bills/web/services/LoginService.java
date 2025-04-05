@@ -33,7 +33,7 @@ public class LoginService {
             String pass = passwordEncoder.encode(password);
             Users user = new Users(username, email, pass, salary);
             usersRepository.save(user);
-            session.setAttribute("success", "you have registered successfully");
+            session.setAttribute(Constants.SUCCESS_PARAM, "you have registered successfully");
             return Constants.REDIRECT+ "login";
         } catch (Exception e) {
             log.error("error to register the user. Error: {}", e.getMessage(), e);
@@ -46,7 +46,7 @@ public class LoginService {
     public String deleteUser(HttpSession session) {
         try {
             usersRepository.deleteById(Long.parseLong(session.getAttribute("user").toString()));
-            session.setAttribute("success", "you have deleted the user successfully");
+            session.setAttribute(Constants.SUCCESS_PARAM, "you have deleted the user successfully");
             return Constants.REDIRECT + "/logout";
         } catch (Exception e) {
             log.error("error to delete the user. Error: {}", e.getMessage(), e);
@@ -76,7 +76,7 @@ public class LoginService {
                 user.setSalary(salary);
             }
             usersRepository.save(user);
-            model.addAttribute("success", "you have updated the user successfully, please log again");
+            model.addAttribute(Constants.SUCCESS_PARAM, "you have updated the user successfully, please log again");
             return Constants.REDIRECT + "logout";
         } catch (Exception e) {
             log.error("error to update the user. Error: {}", e.getMessage(), e);
