@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 
+
 @Controller
 @RequiredArgsConstructor
 @Slf4j
@@ -45,9 +46,18 @@ public class LoginController {
     }
 
     @PostMapping("deleteUser")
-    public String postMethodName(HttpSession session) {
+    public String deleteUser(HttpSession session) {
         return loginService.deleteUser(session);
     }
+
+    @PostMapping("/updateUser")
+    public String updateUser(HttpServletRequest request, Model model, HttpSession session, 
+            @RequestParam(required = false) String username, @RequestParam(required = false) String email,
+            @RequestParam(required = false) String password, @RequestParam(required = false) Double salary) {
+        
+        return loginService.updateUser(session, model, username, email, password, salary);
+    }
+    
     
 
 }

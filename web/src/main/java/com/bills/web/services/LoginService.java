@@ -53,4 +53,35 @@ public class LoginService {
             return "web/login";
         }
     }
+
+    public String updateUser(HttpSession session,Model model, String username, String email, String password, Double salary) {
+        try {
+            Users user = usersRepository.findById(Long.parseLong(session.getAttribute("user").toString())).get();
+            model.addAttribute("user", user);
+
+            if(username == null && password == null && email == null) {
+                return "web/updateUser";
+            }
+
+            if (username != null) {
+                user.setUserName(username);
+            }
+            if (email != null) {
+                user.setEmail(email);
+            }
+            if (password != null) {
+                user.setPassword(passwordEncoder.encode(password));
+            }
+            if (salary != null) {
+                user.setSalary(salary);
+            }
+            usersRepository.save(user);
+            model.addAttribute("success", "you have updated the user successfully, please log again");
+            return Constants.REDIRECT + "logout";
+        } catch (Exception e) {
+            log.error("error to update the user. Error: {}", e.getMessage(), e);
+            model.addAttribute("error", "Error to update the user");
+            return "web/updateUser";
+        }
+    }
 }
