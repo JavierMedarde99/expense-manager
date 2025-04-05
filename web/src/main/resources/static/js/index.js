@@ -1,21 +1,21 @@
-function getID(id, amount,name,page) {
+function getID(id, amount, name, page) {
     let urlForm = "/deleteBill/" + id;
     document.getElementById("formModal").action = urlForm;
 
-    if(document.getElementById("pageCallBack") != null){
+    if (document.getElementById("pageCallBack") != null) {
         document.getElementById("pageCallBack").remove();
     }
 
     if (document.getElementById("selectAmount") == null) {
-        createSelect(amount,name,page);
-    }else{
+        createSelect(amount, name, page);
+    } else {
         document.getElementById("selectAmount").remove();
         document.getElementById("selectText").remove();
-        createSelect(amount,name,page);
+        createSelect(amount, name, page);
     }
 }
 
-function getIDUpdate(id, amount,name,price,type,subtype,date,page){
+function getIDUpdate(id, amount, name, price, type, subtype, date, page) {
     let urlForm = "/updateBill/" + id;
     document.getElementById("formModalUpdate").action = urlForm;
 
@@ -28,13 +28,13 @@ function getIDUpdate(id, amount,name,price,type,subtype,date,page){
 
     let dateInput = document.getElementById("dateUpdate");
     dateInput.value = date;
-   
+
     let amountInput = document.getElementById("amountUpdate");
     amountInput.value = amount;
 
 }
 
-function createSelect(amount,name,page) {
+function createSelect(amount, name, page) {
 
     createInputHidden(page)
 
@@ -52,10 +52,10 @@ function createSelect(amount,name,page) {
         let text = document.createElement("p");
         text.setAttribute("id", "selectText");
         document.getElementById("text-delete").appendChild(text);
-        let textElement = "You want to delete the expense with the name " + name+". Amount:";
+        let textElement = "You want to delete the expense with the name " + name + ". Amount:";
         document.getElementById("selectText").insertAdjacentText("afterbegin", textElement);
 
-        if(document.getElementById("selectAmount") != null){
+        if (document.getElementById("selectAmount") != null) {
             document.getElementById("selectAmount").remove();
         }
 
@@ -74,13 +74,13 @@ function createSelect(amount,name,page) {
 
 }
 
-function createInputHidden(page){
+function createInputHidden(page) {
     let inputpage = document.createElement("input");
     inputpage.setAttribute("type", "hidden");
     inputpage.setAttribute("name", "page");
-    if(page == null || page == undefined){
+    if (page == null || page == undefined) {
         inputpage.setAttribute("value", "");
-    }else{
+    } else {
         inputpage.setAttribute("value", page);
     }
     inputpage.setAttribute("id", "pageCallBack");
@@ -114,4 +114,17 @@ function addSpinner(event) {
     flexSpinner.appendChild(spinner);
     spinner.appendChild(span);
     form.appendChild(flexSpinner);
+}
+
+function togglePassword() {
+    let passwordInput = document.getElementById("password");
+    let image = document.getElementById("eyePassword");
+
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        image.src = "/images/eyeOpen.png";
+    } else {
+        passwordInput.type = "password";
+        image.src = "/images/eyeClose.png";
+    }
 }

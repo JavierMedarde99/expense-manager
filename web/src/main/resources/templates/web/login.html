@@ -21,8 +21,11 @@
                 </div>
                 <form th:action="@{login}" class="d-flex flex-column " method="post" id="form">
                     <input type="text" name="username" id="username" placeholder="user" class="form-control mb-3" required>
+                <div class="mb-5 position-relative">
                     <input type="password" name="password" id="password" placeholder="password"
-                        class="form-control mb-5" required>
+                        class="form-control" required>
+                    <span class="toggle-password" onclick="togglePassword()"><img src="images/eyeClose.png" alt="eye" id="eyePassword"></span>
+                </div>
                     <p th:if="${success}" th:text="${success}" class="text-success border border-success text-center"></p>
                     <p th:if="${error}" th:text="${error}" class="text-danger border border-danger text-center"></p>
                     <button class="btn bg-black text-white"  id="button_form">subtmin</button>

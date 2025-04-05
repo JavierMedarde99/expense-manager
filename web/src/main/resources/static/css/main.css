@@ -22,6 +22,15 @@ input, select{
 .offcanvas{
     background-color: #f3faee !important;
 }
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+
 @media screen and (max-width: 600px) {
     #form-div{
         flex-wrap: wrap;

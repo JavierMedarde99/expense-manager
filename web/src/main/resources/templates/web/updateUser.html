@@ -26,8 +26,12 @@
                     class="h-75 d-flex flex-column justify-content-evenly">
                     <input type="text" name="username" id="username" class="form-control mb-3"
                         placeholder="Enter your new username" required th:value="${user.username}">
-                    <input type="password" name="password" id="password" class="form-control mb-3"
-                        placeholder="Enter your new password" required>
+                        <div class="mb-3 position-relative">
+                            <input type="password" name="password" id="password" placeholder="password" class="form-control"
+                                required>
+                            <span class="toggle-password" onclick="togglePassword()"><img src="images/eyeClose.png"
+                                    alt="eye" id="eyePassword"></span>
+                        </div>
                     <input type="email" name="email" id="email" class="form-control mb-3"
                         placeholder="Enter your new email" required th:value="${user.email}">
                     <input type="number" name="salary" id="salary" class="form-control mb-3"
@@ -44,5 +48,5 @@
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
 
-
+<script src="js/index.js"></script>
 </html>
