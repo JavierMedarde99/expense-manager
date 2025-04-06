@@ -1,5 +1,8 @@
 package com.bills.web.services;
 
+import java.util.Optional;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -82,6 +85,39 @@ public class LoginService {
             log.error("error to update the user. Error: {}", e.getMessage(), e);
             model.addAttribute("error", "Error to update the user");
             return "web/updateUser";
+        }
+    }
+
+    public ResponseEntity<String> checkUser(String username) {
+        try {
+            
+            Optional<Users> optUser = usersRepository.findByUserName(username);
+            if(optUser.isPresent()){
+                return ResponseEntity.ok("true");
+            }
+            return ResponseEntity.internalServerError().body("false");
+        } catch (Exception e) {
+            log.error("error to check the user. Error: {}", e.getMessage(), e);
+            return ResponseEntity.internalServerError().body("false");
+        }
+    }
+
+    public String passwordForgot(Model model, String username, String password) {
+        try {
+
+            if(username == null && password == null) {
+                return "web/passwordForgot";
+            }
+
+            Users user = usersRepository.findByUserName(username).get();
+            user.setPassword(passwordEncoder.encode(password));
+            usersRepository.save(user);
+            model.addAttribute(Constants.SUCCESS_PARAM, "you have updated the password successfully");
+            return "web/login";
+        } catch (Exception e) {
+            log.error("error to update the password. Error: {}", e.getMessage(), e);
+            model.addAttribute(Constants.ERROR_PARAM, "error to update the password");
+            return "web/passwordForgot";
         }
     }
 }
