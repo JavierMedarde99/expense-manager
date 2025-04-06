@@ -46,6 +46,11 @@ public class LoginController {
     }
 
     @PostMapping("deleteUser")
+    public String deleteUserPage(HttpSession session) {
+        return "web/deleteUser";
+    }
+
+    @PostMapping("deleteUserConfirm")
     public String deleteUser(HttpSession session) {
         return loginService.deleteUser(session);
     }
