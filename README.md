@@ -7,8 +7,10 @@ It's a website for managing your expenses, calculating how much you save and spe
 This project is built with these technologies:
 
 [![SpringBoot][Spring.io]][SpringBoot-url]
+[![Thymeleaf][Thymeleaf.org]][Thymeleaf-url]
 [![Javascript][Javascript.js]][Javascript-url]
 [![Bootstrap][Bootstrap.com]][Bootstrap-url]
+
 
 ## Contact
 
@@ -24,3 +26,5 @@ url: https://expense-manager-vzx5.onrender.com/login
 [SpringBoot-url]: https://spring.io
 [Javascript.js]: https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white
 [Javascript-url]: https://lenguajejs.com
+[Thymeleaf-url]: https://www.thymeleaf.org
+[Thymeleaf.org]: https://img.shields.io/badge/thymeleaf-013220?style=for-the-badge&logo=thymeleaf&logoColor=green
