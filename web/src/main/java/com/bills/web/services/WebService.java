@@ -299,7 +299,7 @@ public class WebService {
                 model.addAttribute("existsData", true);
             } else {
                 model.addAttribute("billsBefore", listBills);
-                model.addAttribute("totalBefore", total);
+                model.addAttribute("totalBefore", df.format(total));
                 model.addAttribute("monthBefore", Month.of(month));
                 model.addAttribute("amountBillsBefore", listBills.size() + 2);
                 if (revenuaLastMoth.isPresent()) {
