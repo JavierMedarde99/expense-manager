@@ -314,7 +314,7 @@ public class WebService {
                 model.addAttribute("existsDatabefore", true);
             } else {
                 model.addAttribute("bills", listBills);
-                model.addAttribute("total", total);
+                model.addAttribute("total", df.format(total));
                 model.addAttribute("month", Month.of(month));
                 model.addAttribute("amountBills", listBills.size() + 2);
                 if (revenuaLastMoth.isPresent()) {
