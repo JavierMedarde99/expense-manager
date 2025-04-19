@@ -55,13 +55,13 @@ if (months != null) {
         }
         let total = document.getElementById(month.innerHTML+"_total");
         total = parseInt(total.innerHTML);
-        subType.videogames = (subType.videogames / total )*100;
-        subType.mtg = (subType.mtg / total )*100;
-        subType.book = (subType.book / total )*100;
-        subType.subsctiption = (subType.subsctiption / total )*100;
-        subType.peripherals = (subType.peripherals / total )*100;
-        subType.clothes = (subType.clothes / total )*100;
-        subType.other = (subType.other / total )*100;
+        subType.videogames = ((subType.videogames / total )*100).toFixed(2);
+        subType.mtg = ((subType.mtg / total )*100).toFixed(2);
+        subType.book = ((subType.book / total )*100).toFixed(2);
+        subType.subsctiption = ((subType.subsctiption / total )*100).toFixed(2);
+        subType.peripherals = ((subType.peripherals / total )*100).toFixed(2);
+        subType.clothes = ((subType.clothes / total )*100).toFixed(2);
+        subType.other = ((subType.other / total )*100).toFixed(2);
         generateGapth(Object.keys(subType),Object.values(subType),month.innerHTML,element);
     }
 
