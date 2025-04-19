@@ -1,8 +1,9 @@
-.page{
+.page {
     background-color: #272727 !important;
 }
 
-input, select{
+input,
+select {
     border-top: 0 !important;
     border-left: 0 !important;
     border-right: 0 !important;
@@ -11,19 +12,19 @@ input, select{
     border-radius: 0 !important;
 }
 
-::placeholder{
+::placeholder {
     color: white !important;
 }
 
-#button_form{
+#button_form {
     background-color: #E58947 !important;
 }
 
-.button_form{
+.button_form {
     background-color: #E58947 !important;
 }
 
-.offcanvas{
+.offcanvas {
     background-color: #f3faee !important;
 }
 
@@ -33,20 +34,26 @@ input, select{
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-  }
+}
 
-  a{
+a {
     text-decoration: none;
     color: white;
 
 }
 
+#table{
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+
 @media screen and (max-width: 600px) {
-    #form-div{
+    #form-div {
         flex-wrap: wrap;
     }
-    
-    table > *{
+
+    table>* {
         font-size: smaller;
     }
 }
