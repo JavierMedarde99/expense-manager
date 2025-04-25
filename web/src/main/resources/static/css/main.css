@@ -74,4 +74,22 @@ a {
     table>* {
         font-size: smaller;
     }
+
+    .graph {
+        position: relative;
+    }
+    
+    .graph2 {
+        position: relative;
+    }
+
+    #table{
+        width: 100%;
+    }
+
+    #graph{
+        display: flex !important;
+        flex-flow: row wrap !important;
+    }
+    
 }

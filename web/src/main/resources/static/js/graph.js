@@ -19,15 +19,17 @@ if (months != null) {
         titel.innerHTML = month.innerHTML;
         titel.style.color = "white";
         titel.style.textAlign = "center";
-        if(cont == 0){
-            div.className = "graph";
-            div.style.top = "40%";
-        }else{
-            div.className = "graph2";
-            let firstDiv = document.getElementsByClassName("graph")[0];
-            firstDiv.style.top = "25%";
+        if (window.innerWidth >= 600) {
+            if (cont == 0) {
+                div.className = "graph";
+                div.style.top = "40%";
+            } else {
+                div.className = "graph2";
+                let firstDiv = document.getElementsByClassName("graph")[0];
+                firstDiv.style.top = "25%";
+            }
+            cont++;
         }
-        cont++;
         graph.appendChild(div);
         div.appendChild(titel)
         div.appendChild(element);
@@ -62,45 +64,45 @@ if (months != null) {
                     break;
             }
         }
-        let total = document.getElementById(month.innerHTML+"_total");
+        let total = document.getElementById(month.innerHTML + "_total");
         total = parseInt(total.innerHTML);
-        subType.videogames = ((subType.videogames / total )*100).toFixed(2);
-        subType.mtg = ((subType.mtg / total )*100).toFixed(2);
-        subType.book = ((subType.book / total )*100).toFixed(2);
-        subType.subsctiption = ((subType.subsctiption / total )*100).toFixed(2);
-        subType.peripherals = ((subType.peripherals / total )*100).toFixed(2);
-        subType.clothes = ((subType.clothes / total )*100).toFixed(2);
-        subType.other = ((subType.other / total )*100).toFixed(2);
-        generateGapth(Object.keys(subType),Object.values(subType),month.innerHTML,element);
+        subType.videogames = ((subType.videogames / total) * 100).toFixed(2);
+        subType.mtg = ((subType.mtg / total) * 100).toFixed(2);
+        subType.book = ((subType.book / total) * 100).toFixed(2);
+        subType.subsctiption = ((subType.subsctiption / total) * 100).toFixed(2);
+        subType.peripherals = ((subType.peripherals / total) * 100).toFixed(2);
+        subType.clothes = ((subType.clothes / total) * 100).toFixed(2);
+        subType.other = ((subType.other / total) * 100).toFixed(2);
+        generateGapth(Object.keys(subType), Object.values(subType), month.innerHTML, element);
     }
 
 }
 
 
-function generateGapth(arrayKeys,arrayValues,month,element) {
+function generateGapth(arrayKeys, arrayValues, month, element) {
     console.log(arrayValues);
-        // Crea un nuevo objeto Chart con opciones
-        var chart = new Chart(element, {
-            // Configuración del tipo de gráfico
-            type: 'doughnut',
-    
-            // Datos del gráfico
-            data: {
-                labels: arrayKeys,
-                datasets: [{
-                    label: month,
-                    data: arrayValues,
-                    backgroundColor: [
-                        'rgb(137, 0, 79)',
-                        'rgb(127, 0, 0)',
-                        'rgb(133, 52, 0)',
-                        'rgb(135, 146, 0)',
-                        'rgb(0, 52, 0)',
-                        'rgb(0, 55, 133)',
-                        'rgb(27, 0, 75)'
-                    ],
-                    hoverOffset: 7
-                }]
-            }
-        });
+    // Crea un nuevo objeto Chart con opciones
+    var chart = new Chart(element, {
+        // Configuración del tipo de gráfico
+        type: 'doughnut',
+
+        // Datos del gráfico
+        data: {
+            labels: arrayKeys,
+            datasets: [{
+                label: month,
+                data: arrayValues,
+                backgroundColor: [
+                    'rgb(137, 0, 79)',
+                    'rgb(127, 0, 0)',
+                    'rgb(133, 52, 0)',
+                    'rgb(135, 146, 0)',
+                    'rgb(0, 52, 0)',
+                    'rgb(0, 55, 133)',
+                    'rgb(27, 0, 75)'
+                ],
+                hoverOffset: 7
+            }]
+        }
+    });
 }
