@@ -13,13 +13,15 @@ if (months != null) {
             other: 0,
         }
         let element = document.createElement("canvas");
+        element.width = "330px";
+        element.height = "330px";
         let div = document.createElement("div");
         let titel = document.createElement("h2");
         titel.innerHTML = month.innerHTML;
         titel.style.color = "white";
         titel.style.textAlign = "center";
         div.style.marginLeft =10;
-        div.className = "h-75"
+        div.className = "h-50"
         graph.appendChild(div);
         div.appendChild(titel)
         div.appendChild(element);

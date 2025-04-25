@@ -43,9 +43,9 @@ a {
 }
 
 #graph {
-    position: sticky;
-    top: 0;
-    z-index: 1000; 
+    position: fixed;
+    top: 35%; /* Ajusta según la posición deseada */
+    right: 0; /* Ajusta según la posición deseada */
   }
 
 @media screen and (max-width: 600px) {
