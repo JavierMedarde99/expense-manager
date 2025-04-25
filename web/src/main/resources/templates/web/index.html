@@ -43,7 +43,7 @@
                 <button class="btn text-center align-middle text-white mt-5" id="button_form">subtmin</button>
             </form>
         </div>
-        <div id="table" class="w-75">
+        <div id="table" >
             <h2 th:if="${existsDatabefore != null && existsData != null}"
                 class="text-info border border-info text-center"> No data this two actual month</h2>
             <table class="table table-primary table-bordered" th:if="${existsDatabefore == null || existsData == null}" id="tableSort">
@@ -149,7 +149,7 @@
             </table>
         </div>
 
-        <div id="graph" class=" w-25"></div>        
+        <div id="graph" class="d-flex flex-column justify-content-evenly "></div>        
         <div>
             <p th:if="${error}" th:text="${error}"></p>
             <p th:if="${success}" th:text="${success}"></p>

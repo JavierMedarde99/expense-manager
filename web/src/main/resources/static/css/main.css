@@ -42,11 +42,29 @@ a {
 
 }
 
-#graph {
+.graph {
     position: fixed;
-    top: 35%; /* Ajusta según la posición deseada */
-    right: 0; /* Ajusta según la posición deseada */
-  }
+    top: 25%;
+    right: 0;
+    width: 12%;
+    /* Ajusta según la posición deseada */
+}
+
+.graph2 {
+    position: fixed;
+    top: 57%;
+    right: 0;
+    width: 12%;
+    /* Ajusta según la posición deseada */
+}
+
+#table{
+    width: 85%;
+}
+
+#graph{
+    width: 12%;
+}
 
 @media screen and (max-width: 600px) {
     #form-div {

@@ -1,6 +1,7 @@
 
 let months = document.getElementsByClassName("month");
 let graph = document.getElementById("graph");
+let cont = 0;
 if (months != null) {
     for (let month of months) {
         let subType = {
@@ -13,15 +14,20 @@ if (months != null) {
             other: 0,
         }
         let element = document.createElement("canvas");
-        element.width = "330px";
-        element.height = "330px";
         let div = document.createElement("div");
         let titel = document.createElement("h2");
         titel.innerHTML = month.innerHTML;
         titel.style.color = "white";
         titel.style.textAlign = "center";
-        div.style.marginLeft =10;
-        div.className = "h-50"
+        if(cont == 0){
+            div.className = "graph";
+            div.style.top = "40%";
+        }else{
+            div.className = "graph2";
+            let firstDiv = document.getElementsByClassName("graph")[0];
+            firstDiv.style.top = "25%";
+        }
+        cont++;
         graph.appendChild(div);
         div.appendChild(titel)
         div.appendChild(element);
