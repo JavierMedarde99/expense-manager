@@ -19,6 +19,7 @@ if (months != null) {
         titel.style.color = "white";
         titel.style.textAlign = "center";
         div.style.marginLeft =10;
+        div.className = "h-75"
         graph.appendChild(div);
         div.appendChild(titel)
         div.appendChild(element);
