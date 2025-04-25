@@ -36,7 +36,7 @@
         <h2 th:if="${existsDatabefore != null}" class="text-info border border-info text-center"> Not data this month
         </h2>
         <div id="table">
-            <table class="table table-primary table-bordered" th:if="${existsDatabefore == null}">
+            <table class="table table-primary table-bordered" th:if="${existsDatabefore == null}" id="tableSort">
                 <tr>
                     <th class="text-bg-dark text-center align-middle">Month</th>
                     <th class="text-bg-dark text-center align-middle">Salary</th>

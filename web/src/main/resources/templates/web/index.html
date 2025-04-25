@@ -14,8 +14,8 @@
 <body class="page d-flex flex-column vh-100">
     <header th:insert="~{web/fragments/header :: header}" class="d-flex flex-column">
     </header>
-    <main class="flex-grow-1 w-100">
-        <div class="mb-5 ms-3">
+    <main class="d-flex flex-row flex-wrap flex-grow-1 w-100">
+        <div class="mb-5 ms-3 w-100">
             <form action="insertBills" method="post" id="form">
                 <div class="d-flex flex-row justify-content-around" id="form-div">
                     <input type="text" name="name" id="name" class="form-control me-5 mb-3" placeholder="name" required>
@@ -43,18 +43,18 @@
                 <button class="btn text-center align-middle text-white mt-5" id="button_form">subtmin</button>
             </form>
         </div>
-        <div id="table">
+        <div id="table" class="w-75">
             <h2 th:if="${existsDatabefore != null && existsData != null}"
                 class="text-info border border-info text-center"> No data this two actual month</h2>
-            <table class="table table-primary table-bordered" th:if="${existsDatabefore == null || existsData == null}">
+            <table class="table table-primary table-bordered" th:if="${existsDatabefore == null || existsData == null}" id="tableSort">
                 <tr>
                     <th class="text-bg-dark text-center align-middle">Month</th>
                     <th class="text-bg-dark text-center align-middle">Salary</th>
                     <th class="text-bg-dark text-center align-middle">Revenue</th>
-                    <th class="text-bg-dark text-center align-middle">Name</th>
-                    <th class="text-bg-dark text-center align-middle">SubType</th>
-                    <th class="text-bg-dark text-center align-middle">Bills</th>
-                    <th class="text-bg-dark text-center align-middle">Amount</th>
+                    <th class="text-bg-dark text-center align-middle" onclick="sortTable(0)">Name</th>
+                    <th class="text-bg-dark text-center align-middle" onclick="sortTable(1)">SubType</th>
+                    <th class="text-bg-dark text-center align-middle" onclick="sortTable(2)">Bills</th>
+                    <th class="text-bg-dark text-center align-middle" onclick="sortTable(3)">Amount</th>
                     <th class="text-bg-dark text-center align-middle">Delete/update</th>
 
                 </tr>
@@ -148,6 +148,8 @@
 
             </table>
         </div>
+
+        <div id="graph" class="d-flex flex-row justify-content-evenly w-25"></div>        
         <div>
             <p th:if="${error}" th:text="${error}"></p>
             <p th:if="${success}" th:text="${success}"></p>
@@ -158,9 +160,8 @@
     <div th:insert="~{web/fragments/popUpDelete :: popUpDelete}"></div>
     <div th:insert="~{web/fragments/popUpUpdate :: popUpUpdate}"></div>
 
-    <div id="graph" class="d-flex flex-row justify-content-evenly">
+    
 
-    </div>
     <footer th:insert="~{web/fragments/footer :: footer}" class="bg-light mt-4 w-100 py-3">
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -170,5 +171,4 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="js/graph.js"></script>
 <script src="js/mobile.js"></script>
-
 </html>
