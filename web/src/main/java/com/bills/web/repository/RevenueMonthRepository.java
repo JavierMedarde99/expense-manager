@@ -14,6 +14,6 @@ public interface RevenueMonthRepository extends CrudRepository<RevenueMonth,Long
     @Query(value = "SELECT revenue FROM month_data WHERE month=:month and year=:year and user_id=:id", nativeQuery = true)
     Optional<Double> getRevenue(Integer month,Integer year,Integer id);
 
-    @Query(value = "SELECT  year year_value,sum(md.month_salary) total_earnings, SUM(md.total) total_bill_year,  sum(md.month_salary)-SUM(md.total) as money_saved FROM month_data md where md.user_id = :id GROUP by md.year", nativeQuery = true)
+    @Query(value = "SELECT year year_value,ROUND(sum(md.month_salary),2) total_earnings, ROUND(SUM(md.total),2) total_bill_year,  ROUND(sum(md.month_salary)-SUM(md.total),2) as money_saved FROM month_data md where md.user_id = :id GROUP by md.year", nativeQuery = true)
     List<Map<String,Object>> geyAllYear(Long id);
 }
