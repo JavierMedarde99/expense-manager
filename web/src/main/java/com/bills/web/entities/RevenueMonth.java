@@ -30,13 +30,13 @@ public class RevenueMonth {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    private Users idUser;
+    private Users userId;
 
     public RevenueMonth(Integer month,Integer year,Double revenue,Users idUser,Double total,Double monthSalary){
         this.month = month;
         this.year = year;
         this.revenue = revenue;
-        this.idUser = idUser;
+        this.userId = idUser;
         this.total = total;
         this.monthSalary = monthSalary;
     }
