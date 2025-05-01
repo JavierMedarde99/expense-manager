@@ -34,12 +34,14 @@ public class ScheduleService {
         if (month == 1) {
             year = year - 1;
             month = 12;
+        }else{
+            month = month - 1;
         }
 
         for (Users users : listUSer) {
-            Double total =getTotalBills(month, year, year);
+            Double total =getTotalBills(month, year, Integer.parseInt(users.getId().toString()));
             Double revenue = getRevenue(month, year, Integer.parseInt(users.getId().toString()), users.getSalary(), total);
-            RevenueMonth montEntity = new RevenueMonth(month, year, revenue, users, total, revenue);
+            RevenueMonth montEntity = new RevenueMonth(month, year, revenue, users, total, users.getSalary());
             revenueMonthRepository.save(montEntity);
 
         }
@@ -48,7 +50,7 @@ public class ScheduleService {
 
     private Double getTotalBills(Integer month,Integer year,Integer idUser){
         Double total =0.00;
-        List<Bills> listBills = billsRepository.getOneMonthBills(month, year, idUser,month,year);
+        List<Bills> listBills = billsRepository.getOneMonthBills(month, year, idUser);
         for (Bills bills : listBills) {
             total = (bills.getPrice() * bills.getAmount()) + total;
         }
@@ -56,22 +58,15 @@ public class ScheduleService {
     }
 
     private Double getRevenue(Integer month, Integer year, Integer idUser,Double salary, Double totalBills){
-        Double revenue;
-        Integer yearBefore = year;
-        Integer monthBefore = month -1;
-        if (monthBefore == 0) {
-            yearBefore = year - 1;
-            monthBefore = 12;
-        }
 
-        Optional<Double> optRevenue = revenueMonthRepository.getRevenue(monthBefore, yearBefore,idUser);
+        Optional<Double> optRevenue = revenueMonthRepository.getRevenue(month, year,idUser);
 
         if(optRevenue.isPresent()){
             Double revenueBefore = optRevenue.get();
-            revenue = revenueBefore + salary - totalBills;
+            return revenueBefore + salary - totalBills;
         }else{
-            revenue = salary - totalBills;
+            return salary - totalBills;
         }
-        return revenue;
+
     }
 }

@@ -279,7 +279,7 @@ public class WebService {
         DecimalFormat df = new DecimalFormat("#.##");
         double total = 0;
         Integer yearBefore = year;
-        List<Bills> listBills = billsRepository.getOneMonthBills(month, year, user, month, year);
+        List<Bills> listBills = billsRepository.getOneMonthBills(month, year, user);
 
         Integer mothBefore = month - 1;
 

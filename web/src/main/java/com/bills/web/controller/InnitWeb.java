@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bills.web.model.BillDto;
+import com.bills.web.services.ScheduleService;
 import com.bills.web.services.WebService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class InnitWeb {
 
     private final WebService service;
+    private final ScheduleService scheduleService;
 
     @GetMapping({ "/", "" })
     public String initWeb(Model model, HttpSession session,@AuthenticationPrincipal UserDetails authenticatedUser) {
@@ -74,4 +76,10 @@ public class InnitWeb {
         return service.insertBills(bill,session, model);
     }
 
+
+    @GetMapping("/test")
+    public void getMethodName() {
+        scheduleService.endOfMonth();
+    }
+    
 }

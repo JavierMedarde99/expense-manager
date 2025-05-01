@@ -29,7 +29,7 @@ public class RevenueMonth {
     private Double monthSalary;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_user")
+    @JoinColumn(name = "user_id")
     private Users idUser;
 
     public RevenueMonth(Integer month,Integer year,Double revenue,Users idUser,Double total,Double monthSalary){
