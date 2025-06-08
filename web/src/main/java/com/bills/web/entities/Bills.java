@@ -33,6 +33,9 @@ public class Bills {
     @Nullable
     private LocalDate dateBills;
     private Integer amount;
+    @Nullable
+    private LocalDate unsubscriptionDate;
+
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")

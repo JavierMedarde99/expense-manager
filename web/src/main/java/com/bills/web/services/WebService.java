@@ -177,7 +177,14 @@ public class WebService {
             // if the amount is 0, we delete the bill, if the amount is equal to the
             // indicated amount, we delete the bill
             if (amount == 0 || (optBills.isPresent() && optBills.get().getAmount().equals(amount))) {
-                billsRepository.deleteById(Long.parseLong(id.toString()));
+                if(optBills.isPresent() && optBills.get().getType().equals("fixed")){
+                    // if the bill is fixed, we set the unSubscriptionDate to today
+                    Bills bill = optBills.get();
+                    bill.setUnsubscriptionDate(LocalDate.now());
+                    billsRepository.save(bill);
+                }else{
+                    billsRepository.deleteById(Long.parseLong(id.toString()));
+                }
             } else {
                 // if the amount is greater than 0, we subtract the amount and we remove the
                 // indicated amount
