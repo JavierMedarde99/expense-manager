@@ -56,7 +56,6 @@
                     <th class="text-bg-dark text-center align-middle" onclick="sortTable(2)">Bills</th>
                     <th class="text-bg-dark text-center align-middle" onclick="sortTable(3)">Amount</th>
                     <th class="text-bg-dark text-center align-middle">Delete/update</th>
-
                 </tr>
                 <tr th:if="${existsData == null}">
                     <td th:rowspan="${amountBillsBefore}" th:text="${monthBefore}"
@@ -75,8 +74,8 @@
                         th:id="|${monthBefore}_${billBefore.id}_price|"></td>
                     <td th:text="${billBefore.amount}" class="text-center align-middle"
                         th:id="|${monthBefore}_${billBefore.id}_amount|"></td>
-                    <td>
-                        <div class="text-center align-middle">
+                    <td >
+                        <div class="text-center align-middle" th:if="${billBefore.type == 'variable'}">
                             <button
                                 th:onclick="getID([[${billBefore.id}]],[[${billBefore.amount}]],[[${billBefore.name}]])"
                                 type="button" data-bs-toggle="modal" data-bs-target="#modalDelete" class="btn">

@@ -1,5 +1,9 @@
 .page {
-    background-color: #272727 !important;
+    background-color: #e6e7d6 !important;
+}
+
+*{
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 input,
