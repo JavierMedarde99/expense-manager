@@ -18,7 +18,7 @@
         <div class="mb-5 ms-3 w-100">
             <form action="insertBills" method="post" id="form">
                 <div class="d-flex flex-row justify-content-around" id="form-div">
-                    <input type="text" name="name" id="name" class="form-control me-5 mb-3" placeholder="name" required>
+                    <input type="text" name="name" id="name" class="form-control me-5 mb-3 text-dark" placeholder="name" required>
                     <input type="number" name="price" id="price" step=0.01 class="form-control me-5 mb-3"
                         placeholder="price" required>
                     <select name="type" id="type" class="form-select me-5 mb-3" required>
@@ -43,19 +43,21 @@
                 <button class="btn text-center align-middle text-white mt-5" id="button_form">subtmin</button>
             </form>
         </div>
+        
         <div id="table" >
+            <div id="graph2" class="d-flex flex-column justify-content-evenly "></div> 
             <h2 th:if="${existsDatabefore != null && existsData != null}"
                 class="text-info border border-info text-center"> No data this two actual month</h2>
-            <table class="table table-primary table-bordered" th:if="${existsDatabefore == null || existsData == null}" id="tableSort">
+            <table class="table table-bordered" th:if="${existsDatabefore == null || existsData == null}" id="tableSort">
                 <tr>
-                    <th class="text-bg-dark text-center align-middle">Month</th>
-                    <th class="text-bg-dark text-center align-middle">Salary</th>
-                    <th class="text-bg-dark text-center align-middle">Revenue</th>
-                    <th class="text-bg-dark text-center align-middle" onclick="sortTable(0)">Name</th>
-                    <th class="text-bg-dark text-center align-middle" onclick="sortTable(1)">SubType</th>
-                    <th class="text-bg-dark text-center align-middle" onclick="sortTable(2)">Bills</th>
-                    <th class="text-bg-dark text-center align-middle" onclick="sortTable(3)">Amount</th>
-                    <th class="text-bg-dark text-center align-middle">Delete/update</th>
+                    <th class="text-center align-middle">Month</th>
+                    <th class="text-center align-middle">Salary</th>
+                    <th class="text-center align-middle">Revenue</th>
+                    <th class="text-center align-middle">Name</th>
+                    <th class="text-center align-middle" >SubType</th>
+                    <th class="text-center align-middle" >Bills</th>
+                    <th class="text-center align-middle" >Amount</th>
+                    <th class="text-center align-middle">Delete/update</th>
                 </tr>
                 <tr th:if="${existsData == null}">
                     <td th:rowspan="${amountBillsBefore}" th:text="${monthBefore}"

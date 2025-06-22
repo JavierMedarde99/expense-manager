@@ -17,16 +17,13 @@ if (months != null) {
         let div = document.createElement("div");
         let titel = document.createElement("h2");
         titel.innerHTML = month.innerHTML;
-        titel.style.color = "white";
+        titel.style.color = "black";
         titel.style.textAlign = "center";
         if (window.innerWidth >= 600) {
             if (cont == 0) {
                 div.className = "graph";
-                div.style.top = "40%";
             } else {
                 div.className = "graph2";
-                let firstDiv = document.getElementsByClassName("graph")[0];
-                firstDiv.style.top = "25%";
             }
             cont++;
         }
@@ -84,7 +81,7 @@ function generateGapth(arrayKeys, arrayValues, month, element) {
     // Crea un nuevo objeto Chart con opciones
     var chart = new Chart(element, {
         // Configuración del tipo de gráfico
-        type: 'doughnut',
+        type: 'pie',
 
         // Datos del gráfico
         data: {

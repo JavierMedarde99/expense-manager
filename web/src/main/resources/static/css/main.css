@@ -11,17 +11,17 @@ select {
     border-top: 0 !important;
     border-left: 0 !important;
     border-right: 0 !important;
-    background-color: #272727 !important;
-    color: white !important;
+    background-color: #d6d8c8 !important;
+    color: black !important;
     border-radius: 0 !important;
 }
 
 ::placeholder {
-    color: white !important;
+    color: black !important;
 }
 
 #button_form {
-    background-color: #E58947 !important;
+    background-color: #77dd77 !important;
 }
 
 .button_form {
@@ -42,13 +42,11 @@ select {
 
 a {
     text-decoration: none;
-    color: white;
-
 }
 
 .graph {
     position: fixed;
-    top: 25%;
+    top: 35%;
     right: 0;
     width: 12%;
     /* Ajusta según la posición deseada */
@@ -56,15 +54,24 @@ a {
 
 .graph2 {
     position: fixed;
-    top: 57%;
-    right: 0;
+    top: 35%;
+    right: 88%;
     width: 12%;
     /* Ajusta según la posición deseada */
 }
 
 #table{
-    width: 85%;
-    background-color: #DFDED4;
+    width: 100%;
+    margin-left: 12%;
+    margin-right: 12%;
+}
+
+td{
+    background-color: #e6e7c6 !important;
+}
+
+th{
+    background-color: #d6d8c8 !important;
 }
 
 #graph{
